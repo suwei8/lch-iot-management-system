@@ -229,7 +229,8 @@ SharedModule: 存放全局共享的服务，如日志、配置等。
 
 环境变量与密钥（新增一节 .env 模板）
 建议新增一段标准 .env 模板，包含：
-MYSQL_HOST/PORT/DB/USER/PASSWORD、REDIS_URL（开发用 redis://redis:6379/0）、JWT_SECRET、JWT_EXPIRES_IN、ZL_APP_ID、ZL_TOKEN、ZL_API_URL=https://cloud.hbzhilian.com/AC/Cmd（或你在 README 里标注的云端地址），以及多商户隔离用的 PLATFORM_ID/TENANT_MODE 等。这一节与“技术栈/开发流程/MVP”相呼应，便于一次跑通后端与联调 。
+MYSQL_HOST/PORT/DB/USER/PASSWORD、REDIS_URL（注意mysql的root密码请帮我设置PASSWORD为"sw63828"，开发用 redis://redis:6379/0）、JWT_SECRET、JWT_EXPIRES_IN、ZL_APP_ID、ZL_TOKEN、ZL_API_URL=https://cloud.hbzhilian.com/AC/Cmd（或你在 README 里标注的云端地址），以及多商户隔离用的 PLATFORM_ID/TENANT_MODE 等。这一节与“技术栈/开发流程/MVP”相呼应，便于一次跑通后端与联调 。
+
 
 IoT 指令映射与幂等（新增一表一策略）
 在“业务场景描述”后面追加一个指令与回调对照表，标注最小入库字段：
@@ -244,16 +245,6 @@ cmd:10（结算）：入库 order_no/amount/durations/detail/ts，以 order_no �
 
 cmd:19（缺水/缺液）：入库 device_id/error_code/result/ts 并触发通知。
 这几类事件与你现有描述完全一致，只是把“怎么落库、如何去重”写清楚，方便 Trae 直写代码与表结构 。
-
-回调安全（强烈建议补充）
-为 /api/v1/device/callback 增加签名校验/白名单 IP/时间戳+nonce 防重放的建议，至少要有：
-
-校验来源（签名或网关 IP 段）；
-
-读取 order_no 做幂等锁；
-
-全量记录原始 payload 与解析结果到 device_logs 表，便于审计。
-（这与 README 的“全局异常/日志记录”总原则一致，建议加到该小节末尾）。
 
 Redis 使用规范（开发与生产差异）
 你当前是无密码 Redis（开发 OK），建议在 README 标注“生产环境必须开启 requirepass/TLS，或使用私有网段隔离 + ACL”，同时补一条限流键（例如用户启动设备接口 rate_limit:user:{id}）的约定，契合你“Redis 7（缓存/Session/限流）”的定位 。

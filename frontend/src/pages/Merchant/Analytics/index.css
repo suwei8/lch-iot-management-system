@@ -1,0 +1,453 @@
+/* 商户数据分析页面样式 */
+.merchant-analytics {
+  padding: 24px;
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+/* 页面头部 */
+.merchant-analytics .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding: 0;
+  background: transparent;
+}
+
+.merchant-analytics .header-left h2 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.merchant-analytics .header-left p {
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.merchant-analytics .header-right {
+  display: flex;
+  gap: 12px;
+}
+
+/* 告警横幅 */
+.merchant-analytics .alert-banner {
+  margin-bottom: 24px;
+  border-radius: 8px;
+}
+
+/* 筛选区域 */
+.merchant-analytics .filter-section {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.merchant-analytics .filter-section .ant-card-body {
+  padding: 20px;
+}
+
+/* 统计区域 */
+.merchant-analytics .statistics-section {
+  margin-bottom: 24px;
+}
+
+.merchant-analytics .statistics-section .ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.merchant-analytics .statistics-section .ant-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.merchant-analytics .statistics-section .ant-statistic {
+  text-align: center;
+}
+
+.merchant-analytics .statistics-section .ant-statistic-title {
+  font-size: 14px;
+  color: #8c8c8c;
+  margin-bottom: 8px;
+}
+
+.merchant-analytics .statistics-section .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.merchant-analytics .trend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.merchant-analytics .trend-text {
+  color: #8c8c8c;
+}
+
+/* 图表卡片 */
+.merchant-analytics .chart-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+}
+
+.merchant-analytics .chart-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.merchant-analytics .chart-card .ant-card-head-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.merchant-analytics .chart-card .ant-card-body {
+  padding: 20px;
+}
+
+/* 表格卡片 */
+.merchant-analytics .table-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+}
+
+.merchant-analytics .table-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.merchant-analytics .table-card .ant-card-head-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.merchant-analytics .table-card .ant-card-body {
+  padding: 0;
+}
+
+.merchant-analytics .table-card .ant-table {
+  border-radius: 0;
+}
+
+.merchant-analytics .table-card .ant-table-thead > tr > th {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  font-weight: 600;
+  color: #262626;
+}
+
+.merchant-analytics .table-card .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.merchant-analytics .table-card .ant-table-tbody > tr:hover > td {
+  background: #f5f7fa;
+}
+
+/* 设备信息 */
+.merchant-analytics .device-name {
+  font-weight: 500;
+  color: #262626;
+  margin-bottom: 2px;
+}
+
+.merchant-analytics .device-code {
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+/* 告警时间 */
+.merchant-analytics .alert-time {
+  font-size: 12px;
+  color: #8c8c8c;
+  white-space: nowrap;
+}
+
+/* 文本颜色 */
+.merchant-analytics .text-gray {
+  color: #8c8c8c;
+}
+
+/* 加载状态 */
+.merchant-analytics .ant-spin-container {
+  min-height: 200px;
+}
+
+.merchant-analytics .ant-spin-spinning {
+  opacity: 0.7;
+}
+
+/* 空状态 */
+.merchant-analytics .ant-empty {
+  padding: 40px 0;
+}
+
+.merchant-analytics .ant-empty-description {
+  color: #8c8c8c;
+}
+
+/* 标签样式 */
+.merchant-analytics .ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 0 8px;
+}
+
+/* 进度条样式 */
+.merchant-analytics .ant-progress {
+  margin: 0;
+}
+
+.merchant-analytics .ant-progress-text {
+  font-size: 12px;
+}
+
+/* 工具提示 */
+.merchant-analytics .ant-tooltip {
+  max-width: 300px;
+}
+
+/* 按钮样式 */
+.merchant-analytics .ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.merchant-analytics .ant-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.merchant-analytics .ant-btn-primary {
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  border: none;
+}
+
+.merchant-analytics .ant-btn-primary:hover {
+  background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+}
+
+/* 选择器样式 */
+.merchant-analytics .ant-select {
+  border-radius: 6px;
+}
+
+.merchant-analytics .ant-select-selector {
+  border-radius: 6px !important;
+}
+
+.merchant-analytics .ant-picker {
+  border-radius: 6px;
+}
+
+/* 卡片悬停效果 */
+.merchant-analytics .ant-card {
+  transition: all 0.3s ease;
+}
+
+.merchant-analytics .ant-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .merchant-analytics {
+    padding: 16px;
+  }
+  
+  .merchant-analytics .page-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .merchant-analytics .header-right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 768px) {
+  .merchant-analytics {
+    padding: 12px;
+  }
+  
+  .merchant-analytics .page-header {
+    margin-bottom: 16px;
+  }
+  
+  .merchant-analytics .header-left h2 {
+    font-size: 20px;
+  }
+  
+  .merchant-analytics .filter-section,
+  .merchant-analytics .chart-card,
+  .merchant-analytics .table-card {
+    margin-bottom: 16px;
+  }
+  
+  .merchant-analytics .statistics-section {
+    margin-bottom: 16px;
+  }
+  
+  .merchant-analytics .ant-card-body {
+    padding: 16px;
+  }
+  
+  .merchant-analytics .filter-section .ant-card-body {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .merchant-analytics {
+    padding: 8px;
+  }
+  
+  .merchant-analytics .header-right {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .merchant-analytics .header-right .ant-btn {
+    width: 100%;
+  }
+  
+  .merchant-analytics .filter-section .ant-row {
+    gap: 8px;
+  }
+  
+  .merchant-analytics .ant-card-body {
+    padding: 12px;
+  }
+  
+  .merchant-analytics .table-card .ant-table {
+    font-size: 12px;
+  }
+}
+
+/* 暗色主题适配 */
+@media (prefers-color-scheme: dark) {
+  .merchant-analytics {
+    background: #141414;
+  }
+  
+  .merchant-analytics .header-left h2 {
+    color: #f0f0f0;
+  }
+  
+  .merchant-analytics .header-left p {
+    color: #8c8c8c;
+  }
+  
+  .merchant-analytics .ant-card {
+    background: #1f1f1f;
+    border-color: #303030;
+  }
+  
+  .merchant-analytics .ant-card-head {
+    border-bottom-color: #303030;
+  }
+  
+  .merchant-analytics .ant-card-head-title {
+    color: #f0f0f0;
+  }
+  
+  .merchant-analytics .ant-table-thead > tr > th {
+    background: #262626;
+    border-bottom-color: #303030;
+    color: #f0f0f0;
+  }
+  
+  .merchant-analytics .ant-table-tbody > tr > td {
+    border-bottom-color: #303030;
+    background: #1f1f1f;
+  }
+  
+  .merchant-analytics .ant-table-tbody > tr:hover > td {
+    background: #262626;
+  }
+  
+  .merchant-analytics .device-name {
+    color: #f0f0f0;
+  }
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.merchant-analytics .ant-card {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.merchant-analytics .statistics-section .ant-col:nth-child(1) .ant-card {
+  animation-delay: 0.1s;
+}
+
+.merchant-analytics .statistics-section .ant-col:nth-child(2) .ant-card {
+  animation-delay: 0.2s;
+}
+
+.merchant-analytics .statistics-section .ant-col:nth-child(3) .ant-card {
+  animation-delay: 0.3s;
+}
+
+.merchant-analytics .statistics-section .ant-col:nth-child(4) .ant-card {
+  animation-delay: 0.4s;
+}
+
+/* 滚动条样式 */
+.merchant-analytics ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.merchant-analytics ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.merchant-analytics ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.merchant-analytics ::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 图表容器 */
+.merchant-analytics .recharts-wrapper {
+  margin: 0 auto;
+}
+
+.merchant-analytics .recharts-cartesian-grid-horizontal line,
+.merchant-analytics .recharts-cartesian-grid-vertical line {
+  stroke: #f0f0f0;
+}
+
+.merchant-analytics .recharts-tooltip-wrapper {
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

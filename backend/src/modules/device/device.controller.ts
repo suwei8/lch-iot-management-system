@@ -12,6 +12,15 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
+import { 
+  ApiTags, 
+  ApiOperation, 
+  ApiResponse, 
+  ApiParam, 
+  ApiQuery, 
+  ApiBearerAuth,
+  ApiBody 
+} from '@nestjs/swagger';
 import { DeviceService } from './device.service';
 import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
@@ -23,6 +32,8 @@ import { Roles, UserRole } from '../../common/decorators/roles.decorator';
 /**
  * 设备控制器
  */
+@ApiTags('Devices')
+@ApiBearerAuth()
 @Controller('devices')
 export class DeviceController {
   constructor(private readonly deviceService: DeviceService) {}
@@ -34,6 +45,58 @@ export class DeviceController {
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.PLATFORM_ADMIN)
+  @ApiOperation({ 
+    summary: '创建设备', 
+    description: '创建新的IoT设备，仅管理员可操作' 
+  })
+  @ApiBody({ 
+    type: CreateDeviceDto,
+    description: '设备创建信息',
+    examples: {
+      sensor: {
+        summary: '传感器设备示例',
+        value: {
+          name: '温湿度传感器01',
+          code: 'TH-001',
+          type: 'sensor',
+          model: 'DHT22',
+          manufacturer: '博世',
+          location: '车间A-01',
+          merchantId: 'merchant-uuid',
+          config: {
+            interval: 60,
+            threshold: { temperature: 35, humidity: 80 }
+          }
+        }
+      }
+    }
+  })
+  @ApiResponse({ 
+    status: 201, 
+    description: '设备创建成功',
+    schema: {
+      type: 'object',
+      properties: {
+        success: { type: 'boolean', example: true },
+        message: { type: 'string', example: '设备创建成功' },
+        data: {
+          type: 'object',
+          properties: {
+            id: { type: 'string', example: 'device-uuid' },
+            name: { type: 'string', example: '温湿度传感器01' },
+            code: { type: 'string', example: 'TH-001' },
+            type: { type: 'string', example: 'sensor' },
+            status: { type: 'string', example: 'offline' },
+            createdAt: { type: 'string', format: 'date-time' }
+          }
+        },
+        timestamp: { type: 'string', format: 'date-time' }
+      }
+    }
+  })
+  @ApiResponse({ status: 400, description: '请求参数错误' })
+  @ApiResponse({ status: 401, description: '未授权访问' })
+  @ApiResponse({ status: 403, description: '权限不足' })
   async create(@Body() createDeviceDto: CreateDeviceDto) {
     return await this.deviceService.create(createDeviceDto);
   }

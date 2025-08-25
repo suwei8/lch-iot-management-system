@@ -11,33 +11,59 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateUserDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 const roles_decorator_1 = require("../../../common/decorators/roles.decorator");
 class UpdateUserDto {
 }
 exports.UpdateUserDto = UpdateUserDto;
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: '用户昵称',
+        example: '张三',
+        minLength: 1,
+        maxLength: 50
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)({ message: '昵称必须是字符串' }),
     (0, class_validator_1.Length)(1, 50, { message: '昵称长度必须在1-50位之间' }),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "nickname", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: '用户头像URL',
+        example: 'https://example.com/avatar.jpg'
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)({ message: '头像必须是字符串' }),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "avatar", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: '用户角色',
+        enum: roles_decorator_1.UserRole,
+        example: roles_decorator_1.UserRole.USER
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEnum)(roles_decorator_1.UserRole, { message: '用户角色必须是有效值' }),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "role", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: '用户状态',
+        enum: ['active', 'inactive'],
+        example: 'active'
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)({ message: '状态必须是字符串' }),
     (0, class_validator_1.IsEnum)(['active', 'inactive'], { message: '状态必须是active或inactive' }),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "status", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: '用户余额',
+        example: 1000.50,
+        minimum: 0
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)({}, { message: '余额必须是数字' }),
     (0, class_validator_1.Min)(0, { message: '余额不能为负数' }),

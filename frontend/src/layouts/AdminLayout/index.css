@@ -1,0 +1,312 @@
+/* 管理员布局样式 */
+.admin-layout {
+  min-height: 100vh;
+}
+
+/* 侧边栏样式 */
+.admin-sider {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s;
+}
+
+.admin-sider .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Logo区域 */
+.admin-logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s;
+}
+
+.logo-icon {
+  font-size: 24px;
+  color: #1890ff;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  margin-left: 12px;
+  overflow: hidden;
+}
+
+.logo-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.logo-subtitle {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1;
+  margin: 0;
+}
+
+/* 菜单样式 */
+.admin-menu {
+  flex: 1;
+  border-right: none;
+  background: transparent;
+}
+
+.admin-menu .ant-menu-item {
+  margin: 4px 8px;
+  border-radius: 6px;
+  height: 40px;
+  line-height: 40px;
+  transition: all 0.3s;
+}
+
+.admin-menu .ant-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-menu .ant-menu-item-selected {
+  background: #1890ff;
+  color: #fff;
+}
+
+.admin-menu .ant-menu-item-selected::after {
+  display: none;
+}
+
+.admin-menu .ant-menu-item-icon {
+  font-size: 16px;
+}
+
+/* 主要内容区域 */
+.admin-main {
+  margin-left: 240px;
+  transition: all 0.2s;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-layout .ant-layout-sider-collapsed + .admin-main {
+  margin-left: 80px;
+}
+
+/* 头部样式 */
+.admin-header {
+  height: 64px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f0f0f0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.trigger-btn {
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+.trigger-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.breadcrumb {
+  margin-left: 16px;
+}
+
+.breadcrumb .ant-breadcrumb-link {
+  color: #595959;
+}
+
+.breadcrumb .ant-breadcrumb-link:hover {
+  color: #1890ff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.notification-btn {
+  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+.notification-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.user-info:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.user-avatar {
+  margin-right: 8px;
+}
+
+.user-name {
+  font-size: 14px;
+  color: #262626;
+  font-weight: 500;
+}
+
+/* 内容区域 */
+.admin-content {
+  flex: 1;
+  background: #f5f5f5;
+  overflow: auto;
+}
+
+.content-wrapper {
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .admin-sider {
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  
+  .admin-sider.ant-layout-sider-collapsed {
+    transform: translateX(-100%);
+  }
+  
+  .admin-main {
+    margin-left: 0;
+  }
+  
+  .admin-layout .ant-layout-sider-collapsed + .admin-main {
+    margin-left: 0;
+  }
+  
+  .admin-header {
+    padding: 0 16px;
+  }
+  
+  .content-wrapper {
+    padding: 16px;
+  }
+  
+  .user-name {
+    display: none;
+  }
+  
+  .breadcrumb {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-header {
+    padding: 0 12px;
+  }
+  
+  .content-wrapper {
+    padding: 12px;
+  }
+}
+
+/* 暗色主题适配 */
+.admin-layout.dark {
+  background: #141414;
+}
+
+.admin-layout.dark .admin-header {
+  background: #1f1f1f;
+  border-bottom-color: #303030;
+}
+
+.admin-layout.dark .admin-content {
+  background: #0f0f0f;
+}
+
+.admin-layout.dark .user-name {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.admin-layout.dark .trigger-btn:hover,
+.admin-layout.dark .notification-btn:hover,
+.admin-layout.dark .user-info:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* 动画效果 */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.admin-sider {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+/* 滚动条样式 */
+.admin-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.admin-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.admin-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeviceController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const device_service_1 = require("./device.service");
 const create_device_dto_1 = require("./dto/create-device.dto");
 const update_device_dto_1 = require("./dto/update-device.dto");
@@ -54,6 +55,58 @@ __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)(roles_decorator_1.UserRole.PLATFORM_ADMIN),
+    (0, swagger_1.ApiOperation)({
+        summary: '创建设备',
+        description: '创建新的IoT设备，仅管理员可操作'
+    }),
+    (0, swagger_1.ApiBody)({
+        type: create_device_dto_1.CreateDeviceDto,
+        description: '设备创建信息',
+        examples: {
+            sensor: {
+                summary: '传感器设备示例',
+                value: {
+                    name: '温湿度传感器01',
+                    code: 'TH-001',
+                    type: 'sensor',
+                    model: 'DHT22',
+                    manufacturer: '博世',
+                    location: '车间A-01',
+                    merchantId: 'merchant-uuid',
+                    config: {
+                        interval: 60,
+                        threshold: { temperature: 35, humidity: 80 }
+                    }
+                }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: '设备创建成功',
+        schema: {
+            type: 'object',
+            properties: {
+                success: { type: 'boolean', example: true },
+                message: { type: 'string', example: '设备创建成功' },
+                data: {
+                    type: 'object',
+                    properties: {
+                        id: { type: 'string', example: 'device-uuid' },
+                        name: { type: 'string', example: '温湿度传感器01' },
+                        code: { type: 'string', example: 'TH-001' },
+                        type: { type: 'string', example: 'sensor' },
+                        status: { type: 'string', example: 'offline' },
+                        createdAt: { type: 'string', format: 'date-time' }
+                    }
+                },
+                timestamp: { type: 'string', format: 'date-time' }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: '请求参数错误' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: '未授权访问' }),
+    (0, swagger_1.ApiResponse)({ status: 403, description: '权限不足' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_device_dto_1.CreateDeviceDto]),
@@ -117,6 +170,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], DeviceController.prototype, "handleCallback", null);
 exports.DeviceController = DeviceController = __decorate([
+    (0, swagger_1.ApiTags)('Devices'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('devices'),
     __metadata("design:paramtypes", [device_service_1.DeviceService])
 ], DeviceController);

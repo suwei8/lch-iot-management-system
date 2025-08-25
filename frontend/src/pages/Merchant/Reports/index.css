@@ -1,0 +1,558 @@
+/* 商户报表中心页面样式 */
+.merchant-reports {
+  padding: 24px;
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+/* 页面头部 */
+.merchant-reports .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding: 0;
+  background: transparent;
+}
+
+.merchant-reports .header-left h2 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.merchant-reports .header-left p {
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.merchant-reports .header-right {
+  display: flex;
+  gap: 12px;
+}
+
+/* 筛选区域 */
+.merchant-reports .filter-section {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.merchant-reports .filter-section .ant-card-body {
+  padding: 20px;
+}
+
+/* 表格卡片 */
+.merchant-reports .table-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.merchant-reports .table-card .ant-card-body {
+  padding: 0;
+}
+
+.merchant-reports .table-card .ant-table {
+  border-radius: 0;
+}
+
+.merchant-reports .table-card .ant-table-thead > tr > th {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  font-weight: 600;
+  color: #262626;
+}
+
+.merchant-reports .table-card .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.merchant-reports .table-card .ant-table-tbody > tr:hover > td {
+  background: #f5f7fa;
+}
+
+/* 报表信息 */
+.merchant-reports .report-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.merchant-reports .report-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #262626;
+}
+
+.merchant-reports .report-description {
+  font-size: 12px;
+  color: #8c8c8c;
+  line-height: 1.4;
+}
+
+/* 日期范围 */
+.merchant-reports .date-range {
+  font-size: 12px;
+  color: #8c8c8c;
+  line-height: 1.4;
+}
+
+/* 文本颜色 */
+.merchant-reports .text-gray {
+  color: #8c8c8c;
+}
+
+/* 模态框样式 */
+.merchant-reports .create-modal .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.merchant-reports .create-modal .ant-modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.merchant-reports .create-modal .ant-modal-body {
+  padding: 24px;
+}
+
+.merchant-reports .create-modal .modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+  padding-top: 16px;
+}
+
+/* 预览模态框 */
+.merchant-reports .preview-modal {
+  top: 20px;
+}
+
+.merchant-reports .preview-modal .ant-modal-body {
+  padding: 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.merchant-reports .report-preview {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.merchant-reports .preview-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.merchant-reports .preview-header h3 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.merchant-reports .preview-meta {
+  margin: 0;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.merchant-reports .preview-content {
+  line-height: 1.6;
+}
+
+.merchant-reports .preview-section {
+  margin-bottom: 24px;
+}
+
+.merchant-reports .preview-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+  border-left: 4px solid #1890ff;
+  padding-left: 12px;
+}
+
+.merchant-reports .preview-section p {
+  margin: 0 0 12px 0;
+  color: #595959;
+}
+
+.merchant-reports .stat-item {
+  text-align: center;
+  padding: 16px;
+  background: #fafafa;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.merchant-reports .stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1890ff;
+  margin-bottom: 4px;
+}
+
+.merchant-reports .stat-label {
+  font-size: 12px;
+  color: #8c8c8c;
+  text-transform: uppercase;
+}
+
+.merchant-reports .preview-loading {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.merchant-reports .preview-loading p {
+  margin-top: 16px;
+  color: #8c8c8c;
+}
+
+/* 加载状态 */
+.merchant-reports .ant-spin-container {
+  min-height: 200px;
+}
+
+.merchant-reports .ant-spin-spinning {
+  opacity: 0.7;
+}
+
+/* 空状态 */
+.merchant-reports .ant-empty {
+  padding: 40px 0;
+}
+
+.merchant-reports .ant-empty-description {
+  color: #8c8c8c;
+}
+
+/* 标签样式 */
+.merchant-reports .ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 进度条样式 */
+.merchant-reports .ant-progress {
+  margin: 0;
+}
+
+.merchant-reports .ant-progress-text {
+  font-size: 12px;
+}
+
+/* 工具提示 */
+.merchant-reports .ant-tooltip {
+  max-width: 300px;
+}
+
+/* 按钮样式 */
+.merchant-reports .ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.merchant-reports .ant-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.merchant-reports .ant-btn-primary {
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  border: none;
+}
+
+.merchant-reports .ant-btn-primary:hover {
+  background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+}
+
+.merchant-reports .ant-btn-text {
+  padding: 4px 8px;
+  height: auto;
+  line-height: 1;
+}
+
+/* 选择器样式 */
+.merchant-reports .ant-select {
+  border-radius: 6px;
+}
+
+.merchant-reports .ant-select-selector {
+  border-radius: 6px !important;
+}
+
+.merchant-reports .ant-picker {
+  border-radius: 6px;
+}
+
+/* 表单样式 */
+.merchant-reports .ant-form-item-label > label {
+  font-weight: 500;
+  color: #262626;
+}
+
+.merchant-reports .ant-input,
+.merchant-reports .ant-input-affix-wrapper {
+  border-radius: 6px;
+}
+
+.merchant-reports .ant-checkbox-wrapper {
+  font-size: 14px;
+  color: #595959;
+}
+
+/* 分割线 */
+.merchant-reports .ant-divider {
+  margin: 16px 0;
+  border-color: #f0f0f0;
+}
+
+/* 确认弹框 */
+.merchant-reports .ant-popconfirm {
+  z-index: 1060;
+}
+
+/* 卡片悬停效果 */
+.merchant-reports .ant-card {
+  transition: all 0.3s ease;
+}
+
+.merchant-reports .ant-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .merchant-reports {
+    padding: 16px;
+  }
+  
+  .merchant-reports .page-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .merchant-reports .header-right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 768px) {
+  .merchant-reports {
+    padding: 12px;
+  }
+  
+  .merchant-reports .page-header {
+    margin-bottom: 16px;
+  }
+  
+  .merchant-reports .header-left h2 {
+    font-size: 20px;
+  }
+  
+  .merchant-reports .filter-section,
+  .merchant-reports .table-card {
+    margin-bottom: 16px;
+  }
+  
+  .merchant-reports .ant-card-body {
+    padding: 16px;
+  }
+  
+  .merchant-reports .filter-section .ant-card-body {
+    padding: 16px;
+  }
+  
+  .merchant-reports .create-modal,
+  .merchant-reports .preview-modal {
+    width: 95% !important;
+    max-width: none;
+  }
+  
+  .merchant-reports .ant-table {
+    font-size: 12px;
+  }
+  
+  .merchant-reports .ant-table-thead > tr > th,
+  .merchant-reports .ant-table-tbody > tr > td {
+    padding: 8px 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .merchant-reports {
+    padding: 8px;
+  }
+  
+  .merchant-reports .header-right {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .merchant-reports .header-right .ant-btn {
+    width: 100%;
+  }
+  
+  .merchant-reports .filter-section .ant-row {
+    gap: 8px;
+  }
+  
+  .merchant-reports .ant-card-body {
+    padding: 12px;
+  }
+  
+  .merchant-reports .create-modal .ant-modal-body,
+  .merchant-reports .preview-modal .ant-modal-body {
+    padding: 16px;
+  }
+  
+  .merchant-reports .report-name {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .merchant-reports .ant-space {
+    flex-wrap: wrap;
+  }
+}
+
+/* 暗色主题适配 */
+@media (prefers-color-scheme: dark) {
+  .merchant-reports {
+    background: #141414;
+  }
+  
+  .merchant-reports .header-left h2 {
+    color: #f0f0f0;
+  }
+  
+  .merchant-reports .header-left p {
+    color: #8c8c8c;
+  }
+  
+  .merchant-reports .ant-card {
+    background: #1f1f1f;
+    border-color: #303030;
+  }
+  
+  .merchant-reports .ant-table-thead > tr > th {
+    background: #262626;
+    border-bottom-color: #303030;
+    color: #f0f0f0;
+  }
+  
+  .merchant-reports .ant-table-tbody > tr > td {
+    border-bottom-color: #303030;
+    background: #1f1f1f;
+  }
+  
+  .merchant-reports .ant-table-tbody > tr:hover > td {
+    background: #262626;
+  }
+  
+  .merchant-reports .report-name {
+    color: #f0f0f0;
+  }
+  
+  .merchant-reports .preview-header h3 {
+    color: #f0f0f0;
+  }
+  
+  .merchant-reports .preview-section h4 {
+    color: #f0f0f0;
+  }
+  
+  .merchant-reports .preview-section p {
+    color: #d9d9d9;
+  }
+  
+  .merchant-reports .stat-item {
+    background: #262626;
+  }
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.merchant-reports .ant-card {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.merchant-reports .ant-table-tbody > tr {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* 滚动条样式 */
+.merchant-reports ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.merchant-reports ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.merchant-reports ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.merchant-reports ::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 状态指示器 */
+.merchant-reports .status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.merchant-reports .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.merchant-reports .status-dot.success {
+  background: #52c41a;
+}
+
+.merchant-reports .status-dot.processing {
+  background: #1890ff;
+}
+
+.merchant-reports .status-dot.error {
+  background: #ff4d4f;
+}
+
+.merchant-reports .status-dot.default {
+  background: #d9d9d9;
+}

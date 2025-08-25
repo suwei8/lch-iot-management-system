@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const user_service_1 = require("./user.service");
 const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 const roles_guard_1 = require("../../common/guards/roles.guard");
@@ -94,6 +95,37 @@ let UserController = class UserController {
 exports.UserController = UserController;
 __decorate([
     (0, common_1.Get)('profile'),
+    (0, swagger_1.ApiOperation)({
+        summary: '获取当前用户信息',
+        description: '获取当前登录用户的详细信息'
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: '获取成功',
+        schema: {
+            type: 'object',
+            properties: {
+                success: { type: 'boolean', example: true },
+                message: { type: 'string', example: '获取成功' },
+                data: {
+                    type: 'object',
+                    properties: {
+                        id: { type: 'string', example: 'uuid-string' },
+                        phone: { type: 'string', example: '13800138000' },
+                        nickname: { type: 'string', example: '用户昵称' },
+                        role: { type: 'string', example: 'merchant' },
+                        avatar: { type: 'string', example: 'https://example.com/avatar.jpg' },
+                        balance: { type: 'number', example: 1000.50 },
+                        status: { type: 'string', example: 'active' },
+                        lastLoginAt: { type: 'string', format: 'date-time' },
+                        createdAt: { type: 'string', format: 'date-time' },
+                        updatedAt: { type: 'string', format: 'date-time' }
+                    }
+                },
+                timestamp: { type: 'string', format: 'date-time' }
+            }
+        }
+    }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -148,6 +180,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "remove", null);
 exports.UserController = UserController = __decorate([
+    (0, swagger_1.ApiTags)('Users'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('users'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [user_service_1.UserService])

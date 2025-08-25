@@ -1,0 +1,558 @@
+/* 管理员商户管理页面样式 */
+.admin-merchants {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.admin-merchants .ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 页面头部 */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.header-left h2 {
+  margin: 0 0 8px 0;
+  color: #262626;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.header-left p {
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.header-right .ant-btn {
+  margin-left: 8px;
+}
+
+/* 筛选区域 */
+.filter-section {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #fafafa;
+  border-radius: 6px;
+  border: 1px solid #f0f0f0;
+}
+
+.filter-section .ant-input-search {
+  border-radius: 6px;
+}
+
+.filter-section .ant-select {
+  border-radius: 6px;
+}
+
+/* 表格样式 */
+.admin-merchants .ant-table {
+  background: white;
+  border-radius: 8px;
+}
+
+.admin-merchants .ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+  color: #262626;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.admin-merchants .ant-table-tbody > tr:hover > td {
+  background: #f5f5f5;
+}
+
+/* 商户信息列 */
+.merchant-name {
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 4px;
+}
+
+.merchant-code {
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+.contact-info {
+  font-size: 12px;
+  color: #8c8c8c;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 状态标签 */
+.admin-merchants .ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 2px 8px;
+  border: none;
+}
+
+.admin-merchants .ant-badge-status-dot {
+  width: 8px;
+  height: 8px;
+}
+
+/* 操作按钮 */
+.admin-merchants .ant-btn-link {
+  padding: 4px 8px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.admin-merchants .ant-btn-link:hover {
+  background: rgba(24, 144, 255, 0.1);
+}
+
+.admin-merchants .ant-btn-link.ant-btn-dangerous:hover {
+  background: rgba(255, 77, 79, 0.1);
+}
+
+/* 开关样式 */
+.admin-merchants .ant-switch {
+  min-width: 36px;
+}
+
+/* 分页样式 */
+.admin-merchants .ant-pagination {
+  margin-top: 24px;
+  text-align: right;
+}
+
+.admin-merchants .ant-pagination-total-text {
+  color: #8c8c8c;
+}
+
+/* 模态框样式 */
+.admin-merchants .ant-modal {
+  top: 20px;
+}
+
+.admin-merchants .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 24px;
+}
+
+.admin-merchants .ant-modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.admin-merchants .ant-modal-body {
+  padding: 24px;
+}
+
+.admin-merchants .ant-form-item-label > label {
+  font-weight: 500;
+  color: #262626;
+}
+
+.admin-merchants .ant-input,
+.admin-merchants .ant-select-selector {
+  border-radius: 6px;
+  border: 1px solid #d9d9d9;
+}
+
+.admin-merchants .ant-input:focus,
+.admin-merchants .ant-select-focused .ant-select-selector {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.form-actions {
+  margin-bottom: 0;
+  text-align: right;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* 抽屉样式 */
+.admin-merchants .ant-drawer-header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.admin-merchants .ant-drawer-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.admin-merchants .ant-drawer-body {
+  padding: 24px;
+}
+
+/* 商户详情 */
+.merchant-detail {
+  padding: 0;
+}
+
+.merchant-detail .ant-descriptions-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 16px;
+}
+
+.merchant-detail .ant-descriptions-item-label {
+  font-weight: 500;
+  color: #595959;
+  background: #fafafa;
+}
+
+.merchant-detail .ant-descriptions-item-content {
+  color: #262626;
+}
+
+.merchant-stats {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.merchant-stats h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 16px;
+}
+
+.merchant-stats .ant-statistic {
+  text-align: center;
+  padding: 16px;
+  background: #fafafa;
+  border-radius: 6px;
+}
+
+.merchant-stats .ant-statistic-title {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.merchant-stats .ant-statistic-content {
+  color: #1890ff;
+  font-weight: 600;
+}
+
+/* 工具提示 */
+.admin-merchants .ant-tooltip {
+  max-width: 300px;
+}
+
+/* 确认弹框 */
+.admin-merchants .ant-popconfirm {
+  max-width: 300px;
+}
+
+.admin-merchants .ant-popconfirm-title {
+  font-weight: 500;
+}
+
+.admin-merchants .ant-popconfirm-description {
+  color: #8c8c8c;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* 加载状态 */
+.admin-merchants .ant-spin-container {
+  min-height: 400px;
+}
+
+.admin-merchants .ant-table-placeholder {
+  padding: 60px 0;
+}
+
+.admin-merchants .ant-empty {
+  margin: 40px 0;
+}
+
+.admin-merchants .ant-empty-description {
+  color: #8c8c8c;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .admin-merchants {
+    padding: 16px;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .header-right {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .filter-section .ant-row {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-merchants {
+    padding: 12px;
+  }
+  
+  .page-header {
+    margin-bottom: 16px;
+  }
+  
+  .header-left h2 {
+    font-size: 20px;
+  }
+  
+  .header-right .ant-btn {
+    margin-left: 0;
+    margin-bottom: 8px;
+  }
+  
+  .filter-section {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .admin-merchants .ant-table {
+    font-size: 12px;
+  }
+  
+  .merchant-name {
+    font-size: 13px;
+  }
+  
+  .merchant-code,
+  .contact-info {
+    font-size: 11px;
+  }
+  
+  .admin-merchants .ant-modal {
+    margin: 0;
+    max-width: 100vw;
+    top: 0;
+  }
+  
+  .admin-merchants .ant-drawer {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-merchants {
+    padding: 8px;
+  }
+  
+  .page-header {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+  
+  .header-left h2 {
+    font-size: 18px;
+  }
+  
+  .header-left p {
+    font-size: 12px;
+  }
+  
+  .filter-section {
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .admin-merchants .ant-card {
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .admin-merchants .ant-table-thead > tr > th {
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+  
+  .admin-merchants .ant-table-tbody > tr > td {
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+  
+  .admin-merchants .ant-btn {
+    font-size: 12px;
+    height: 28px;
+    padding: 0 8px;
+  }
+  
+  .admin-merchants .ant-tag {
+    font-size: 10px;
+    padding: 1px 4px;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme='dark'] .admin-merchants {
+  background: #141414;
+}
+
+[data-theme='dark'] .admin-merchants .ant-card {
+  background: #1f1f1f;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .page-header {
+  border-bottom-color: #303030;
+}
+
+[data-theme='dark'] .header-left h2 {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .header-left p {
+  color: #8c8c8c;
+}
+
+[data-theme='dark'] .filter-section {
+  background: #262626;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .admin-merchants .ant-table {
+  background: #1f1f1f;
+}
+
+[data-theme='dark'] .admin-merchants .ant-table-thead > tr > th {
+  background: #262626;
+  color: #ffffff;
+  border-bottom-color: #303030;
+}
+
+[data-theme='dark'] .admin-merchants .ant-table-tbody > tr:hover > td {
+  background: #262626;
+}
+
+[data-theme='dark'] .merchant-name {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .merchant-code,
+[data-theme='dark'] .contact-info {
+  color: #8c8c8c;
+}
+
+[data-theme='dark'] .admin-merchants .ant-modal {
+  background: #1f1f1f;
+}
+
+[data-theme='dark'] .admin-merchants .ant-modal-header {
+  background: #1f1f1f;
+  border-bottom-color: #303030;
+}
+
+[data-theme='dark'] .admin-merchants .ant-modal-title {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .admin-merchants .ant-drawer-header {
+  background: #1f1f1f;
+  border-bottom-color: #303030;
+}
+
+[data-theme='dark'] .admin-merchants .ant-drawer-title {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .admin-merchants .ant-drawer-body {
+  background: #1f1f1f;
+}
+
+[data-theme='dark'] .merchant-detail .ant-descriptions-title {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .merchant-detail .ant-descriptions-item-label {
+  background: #262626;
+  color: #ffffff;
+}
+
+[data-theme='dark'] .merchant-detail .ant-descriptions-item-content {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .merchant-stats {
+  border-top-color: #303030;
+}
+
+[data-theme='dark'] .merchant-stats h3 {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .merchant-stats .ant-statistic {
+  background: #262626;
+}
+
+[data-theme='dark'] .form-actions {
+  border-top-color: #303030;
+}
+
+/* 动画效果 */
+.admin-merchants .ant-table-tbody > tr {
+  transition: all 0.3s ease;
+}
+
+.admin-merchants .ant-btn {
+  transition: all 0.3s ease;
+}
+
+.admin-merchants .ant-tag {
+  transition: all 0.3s ease;
+}
+
+.admin-merchants .ant-switch {
+  transition: all 0.3s ease;
+}
+
+/* 滚动条样式 */
+.admin-merchants ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.admin-merchants ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.admin-merchants ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.admin-merchants ::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+[data-theme='dark'] .admin-merchants ::-webkit-scrollbar-track {
+  background: #262626;
+}
+
+[data-theme='dark'] .admin-merchants ::-webkit-scrollbar-thumb {
+  background: #595959;
+}
+
+[data-theme='dark'] .admin-merchants ::-webkit-scrollbar-thumb:hover {
+  background: #8c8c8c;
+}

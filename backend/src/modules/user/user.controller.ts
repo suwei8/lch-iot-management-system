@@ -10,6 +10,15 @@ import {
   Request,
   ParseIntPipe,
 } from '@nestjs/common';
+import { 
+  ApiTags, 
+  ApiOperation, 
+  ApiResponse, 
+  ApiParam, 
+  ApiQuery, 
+  ApiBearerAuth,
+  ApiBody 
+} from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -19,6 +28,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 /**
  * 用户控制器
  */
+@ApiTags('Users')
+@ApiBearerAuth()
 @Controller('users')
 @UseGuards(JwtAuthGuard)
 export class UserController {
@@ -29,6 +40,37 @@ export class UserController {
    * @param req 请求对象
    */
   @Get('profile')
+  @ApiOperation({ 
+    summary: '获取当前用户信息', 
+    description: '获取当前登录用户的详细信息' 
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: '获取成功',
+    schema: {
+      type: 'object',
+      properties: {
+        success: { type: 'boolean', example: true },
+        message: { type: 'string', example: '获取成功' },
+        data: {
+          type: 'object',
+          properties: {
+            id: { type: 'string', example: 'uuid-string' },
+            phone: { type: 'string', example: '13800138000' },
+            nickname: { type: 'string', example: '用户昵称' },
+            role: { type: 'string', example: 'merchant' },
+            avatar: { type: 'string', example: 'https://example.com/avatar.jpg' },
+            balance: { type: 'number', example: 1000.50 },
+            status: { type: 'string', example: 'active' },
+            lastLoginAt: { type: 'string', format: 'date-time' },
+            createdAt: { type: 'string', format: 'date-time' },
+            updatedAt: { type: 'string', format: 'date-time' }
+          }
+        },
+        timestamp: { type: 'string', format: 'date-time' }
+      }
+    }
+  })
   async getProfile(@Request() req) {
     const user = await this.userService.findById(req.user.userId);
     return {
