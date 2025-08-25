@@ -1,0 +1,1168 @@
+### IoT洗车平台 API 测试脚本
+### 基础URL
+@baseUrl = http://localhost:3000
+@token = 
+
+### ========== 认证相关接口 ==========
+
+### 1. 用户注册
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "phone": "13800138001",
+  "password": "123456",
+  "nickname": "测试用户1"
+}
+
+### 2. 管理员注册
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "phone": "13800138000",
+  "password": "admin123",
+  "nickname": "系统管理员"
+}
+
+### 3. 用户登录
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "phone": "13800138001",
+  "password": "123456"
+}
+
+### 4. 管理员登录
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "phone": "13800138000",
+  "password": "admin123"
+}
+
+### ========== 用户相关接口 ==========
+
+### 5. 获取当前用户信息
+GET {{baseUrl}}/users/profile
+Authorization: Bearer {{token}}
+
+### 6. 更新当前用户信息
+PATCH {{baseUrl}}/users/profile
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nickname": "更新后的昵称",
+  "avatar": "https://example.com/avatar.jpg"
+}
+
+### 7. 获取用户列表（仅管理员）
+GET {{baseUrl}}/users?page=1&limit=10
+Authorization: Bearer {{token}}
+
+### 8. 获取指定用户信息（仅管理员）
+GET {{baseUrl}}/users/1
+Authorization: Bearer {{token}}
+
+### 9. 更新指定用户信息（仅管理员）
+PATCH {{baseUrl}}/users/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "role": "admin",
+  "status": "active",
+  "balance": 100.00
+}
+
+### 10. 删除用户（仅管理员）
+DELETE {{baseUrl}}/users/1
+Authorization: Bearer {{token}}
+
+### ========== 设备相关接口 ==========
+
+### 11. 创建设备（仅管理员）
+POST {{baseUrl}}/devices
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "测试洗车设备001",
+  "model": "WC-2024-Pro",
+  "iccid": "89860000000000000001",
+  "merchantId": 1,
+  "location": "北京市朝阳区测试路1号",
+  "longitude": 116.397428,
+  "latitude": 39.90923,
+  "config": {
+    "washTypes": ["标准洗", "精洗", "打蜡"],
+    "prices": {
+      "标准洗": 10.00,
+      "精洗": 20.00,
+      "打蜡": 30.00
+    }
+  }
+}
+
+### 12. 获取设备列表
+GET {{baseUrl}}/devices?page=1&limit=10&status=online
+Authorization: Bearer {{token}}
+
+### 13. 获取指定设备信息
+GET {{baseUrl}}/devices/1
+Authorization: Bearer {{token}}
+
+### 14. 更新设备信息（仅管理员）
+PATCH {{baseUrl}}/devices/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "更新后的设备名称",
+  "status": "maintenance",
+  "location": "北京市朝阳区更新路2号"
+}
+
+### 15. 删除设备（仅管理员）
+DELETE {{baseUrl}}/devices/1
+Authorization: Bearer {{token}}
+
+### 16. 获取设备日志
+GET {{baseUrl}}/devices/1/logs?page=1&limit=20
+Authorization: Bearer {{token}}
+
+### 17. 设备回调接口（无需认证）
+POST {{baseUrl}}/devices/callback
+Content-Type: application/json
+
+{
+  "iccid": "89860000000000000001",
+  "eventType": "heartbeat",
+  "data": {
+    "status": "online",
+    "temperature": 25.5,
+    "humidity": 60.2,
+    "waterLevel": 80
+  },
+  "timestamp": "2024-01-15T10:30:00Z"
+}
+
+### 18. 设备状态变更回调
+POST {{baseUrl}}/devices/callback
+Content-Type: application/json
+
+{
+  "iccid": "89860000000000000001",
+  "eventType": "status_change",
+  "data": {
+    "oldStatus": "online",
+    "newStatus": "busy",
+    "reason": "开始洗车"
+  },
+  "timestamp": "2024-01-15T10:35:00Z"
+}
+
+### ========== 订单相关接口 ==========
+
+### 19. 创建订单
+POST {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "deviceId": 1,
+  "washType": "标准洗",
+  "duration": 15,
+  "amount": 10.00,
+  "remark": "测试订单"
+}
+
+### 20. 获取订单列表
+GET {{baseUrl}}/orders?page=1&limit=10&status=completed
+Authorization: Bearer {{token}}
+
+### 21. 获取所有订单（仅管理员）
+GET {{baseUrl}}/orders/admin/all?page=1&limit=10&userId=1&status=pending
+Authorization: Bearer {{token}}
+
+### 22. 获取指定订单详情
+GET {{baseUrl}}/orders/1
+Authorization: Bearer {{token}}
+
+### 23. 更新订单（仅管理员）
+PATCH {{baseUrl}}/orders/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "completed",
+  "duration": 18,
+  "remark": "洗车完成"
+}
+
+### 24. 支付订单
+POST {{baseUrl}}/orders/WC1705123456789ABC/pay
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "paymentMethod": "balance"
+}
+
+### 25. 取消订单
+POST {{baseUrl}}/orders/1/cancel
+Authorization: Bearer {{token}}
+
+### 26. 开始洗车（设备回调）
+POST {{baseUrl}}/orders/WC1705123456789ABC/start
+Authorization: Bearer {{token}}
+
+### 27. 完成洗车（设备回调）
+POST {{baseUrl}}/orders/WC1705123456789ABC/complete
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "actualDuration": 16
+}
+
+### 28. 获取用户订单统计
+GET {{baseUrl}}/orders/stats/user
+Authorization: Bearer {{token}}
+
+### 29. 获取指定用户订单统计（仅管理员）
+GET {{baseUrl}}/orders/stats/user/1
+Authorization: Bearer {{token}}
+
+### ========== 后台管理系统接口 ==========
+
+### 30. 获取仪表板统计数据
+GET {{baseUrl}}/admin/dashboard/stats
+Authorization: Bearer {{token}}
+
+### 31. 获取用户增长趋势
+GET {{baseUrl}}/admin/dashboard/user-growth?days=30
+Authorization: Bearer {{token}}
+
+### 32. 获取订单趋势
+GET {{baseUrl}}/admin/dashboard/order-trend?days=30
+Authorization: Bearer {{token}}
+
+### 33. 获取设备使用率统计
+GET {{baseUrl}}/admin/dashboard/device-usage
+Authorization: Bearer {{token}}
+
+### 34. 获取热门洗车类型统计
+GET {{baseUrl}}/admin/dashboard/popular-wash-types
+Authorization: Bearer {{token}}
+
+### ========== 用户管理接口 ==========
+
+### 35. 创建用户
+POST {{baseUrl}}/admin/users
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "phone": "13800138002",
+  "password": "123456",
+  "nickname": "管理员创建用户",
+  "role": "merchant",
+  "status": "active"
+}
+
+### 36. 获取用户列表
+GET {{baseUrl}}/admin/users?page=1&limit=10&role=merchant&status=active&search=测试
+Authorization: Bearer {{token}}
+
+### 37. 获取用户详情
+GET {{baseUrl}}/admin/users/1
+Authorization: Bearer {{token}}
+
+### 38. 更新用户信息
+PUT {{baseUrl}}/admin/users/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nickname": "更新后的用户名",
+  "status": "inactive",
+  "balance": 100.00
+}
+
+### 39. 删除用户
+POST {{baseUrl}}/admin/users/1/delete
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "reason": "违规操作"
+}
+
+### 40. 批量操作用户
+POST {{baseUrl}}/admin/users/batch
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "userIds": [1, 2, 3],
+  "action": "activate",
+  "reason": "批量激活用户"
+}
+
+### ========== 商户管理接口 ==========
+
+### 41. 创建商户
+POST {{baseUrl}}/admin/merchants
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "测试洗车连锁",
+  "contactName": "张三",
+  "contactPhone": "13800138003",
+  "email": "test@example.com",
+  "address": "北京市朝阳区测试街道123号",
+  "businessLicense": "91110000000000000X",
+  "status": "active"
+}
+
+### 42. 获取商户列表
+GET {{baseUrl}}/admin/merchants?page=1&limit=10&status=active&search=测试
+Authorization: Bearer {{token}}
+
+### 43. 获取商户详情
+GET {{baseUrl}}/admin/merchants/1
+Authorization: Bearer {{token}}
+
+### 44. 更新商户信息
+PUT {{baseUrl}}/admin/merchants/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "更新后的商户名称",
+  "status": "inactive",
+  "contactPhone": "13800138004"
+}
+
+### 45. 删除商户
+POST {{baseUrl}}/admin/merchants/1/delete
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "reason": "商户申请注销"
+}
+
+### ========== 门店管理接口 ==========
+
+### 46. 创建门店
+POST {{baseUrl}}/admin/stores
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "测试门店001",
+  "merchantId": 1,
+  "address": "北京市朝阳区测试路456号",
+  "longitude": 116.397428,
+  "latitude": 39.90923,
+  "contactPhone": "010-12345678",
+  "businessHours": "08:00-22:00",
+  "status": "active"
+}
+
+### 47. 获取门店列表
+GET {{baseUrl}}/admin/stores?page=1&limit=10&merchantId=1&status=active&search=测试
+Authorization: Bearer {{token}}
+
+### 48. 获取门店详情
+GET {{baseUrl}}/admin/stores/1
+Authorization: Bearer {{token}}
+
+### 49. 更新门店信息
+PUT {{baseUrl}}/admin/stores/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "更新后的门店名称",
+  "status": "maintenance",
+  "businessHours": "09:00-21:00"
+}
+
+### 50. 删除门店
+POST {{baseUrl}}/admin/stores/1/delete
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "reason": "门店关闭"
+}
+
+### ========== 设备管理接口（扩展） ==========
+
+### 51. 批量创建设备
+POST {{baseUrl}}/admin/devices/batch
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "devices": [
+    {
+      "name": "批量设备001",
+      "model": "WC-2024-Pro",
+      "iccid": "89860000000000000002",
+      "storeId": 1
+    },
+    {
+      "name": "批量设备002",
+      "model": "WC-2024-Pro",
+      "iccid": "89860000000000000003",
+      "storeId": 1
+    }
+  ]
+}
+
+### 52. 设备状态统计
+GET {{baseUrl}}/admin/devices/stats?storeId=1
+Authorization: Bearer {{token}}
+
+### 53. 批量更新设备状态
+POST {{baseUrl}}/admin/devices/batch-status
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "deviceIds": [1, 2, 3],
+  "status": "maintenance",
+  "reason": "定期维护"
+}
+
+### ========== 订单管理接口（扩展） ==========
+
+### 54. 订单统计
+GET {{baseUrl}}/admin/orders/stats?startDate=2024-01-01&endDate=2024-01-31&storeId=1
+Authorization: Bearer {{token}}
+
+### 55. 导出订单数据
+POST {{baseUrl}}/admin/orders/export
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "startDate": "2024-01-01",
+  "endDate": "2024-01-31",
+  "storeId": 1,
+  "status": "completed"
+}
+
+### ========== 库存管理接口 ==========
+
+### 56. 创建库存
+POST {{baseUrl}}/admin/inventory
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "materialName": "洗车液",
+  "materialCode": "WCL001",
+  "materialType": "consumable",
+  "storeId": 1,
+  "currentStock": 100,
+  "minThreshold": 20,
+  "maxCapacity": 500,
+  "unit": "升"
+}
+
+### 57. 获取库存列表
+GET {{baseUrl}}/admin/inventory?page=1&limit=10&storeId=1&materialType=consumable&lowStock=true
+Authorization: Bearer {{token}}
+
+### 58. 获取库存详情
+GET {{baseUrl}}/admin/inventory/1
+Authorization: Bearer {{token}}
+
+### 59. 更新库存信息
+PUT {{baseUrl}}/admin/inventory/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "currentStock": 80,
+  "minThreshold": 15,
+  "maxCapacity": 600
+}
+
+### 60. 库存操作（入库/出库）
+POST {{baseUrl}}/admin/inventory/1/operation
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "operationType": "in",
+  "quantity": 50,
+  "reason": "采购入库",
+  "remark": "供应商A提供"
+}
+
+### 61. 批量库存操作
+POST {{baseUrl}}/admin/inventory/batch-operation
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "inventoryIds": [1, 2, 3],
+  "operationType": "out",
+  "reason": "设备维护消耗",
+  "remark": "月度维护"
+}
+
+### 62. 库存统计
+GET {{baseUrl}}/admin/inventory/stats?storeId=1&materialType=consumable
+Authorization: Bearer {{token}}
+
+### ========== 告警管理接口 ==========
+
+### 63. 创建告警
+POST {{baseUrl}}/admin/alerts
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "alertType": "low_stock",
+  "level": "warning",
+  "title": "库存不足告警",
+  "content": "洗车液库存不足，当前库存：15升，最低阈值：20升",
+  "storeId": 1,
+  "inventoryId": 1,
+  "relatedData": {
+    "currentStock": 15,
+    "threshold": 20
+  }
+}
+
+### 64. 获取告警列表
+GET {{baseUrl}}/admin/alerts?page=1&limit=10&level=warning&status=pending&storeId=1
+Authorization: Bearer {{token}}
+
+### 65. 获取告警详情
+GET {{baseUrl}}/admin/alerts/1
+Authorization: Bearer {{token}}
+
+### 66. 确认告警
+PUT {{baseUrl}}/admin/alerts/1/acknowledge
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "remark": "已安排采购，预计明天到货"
+}
+
+### 67. 批量确认告警
+POST {{baseUrl}}/admin/alerts/batch-acknowledge
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "alertIds": [1, 2, 3],
+  "remark": "批量处理告警"
+}
+
+### 68. 告警统计
+GET {{baseUrl}}/admin/alerts/stats?startDate=2024-01-01&endDate=2024-01-31&storeId=1
+Authorization: Bearer {{token}}
+
+### ========== 审计日志接口 ==========
+
+### 69. 获取审计日志列表
+GET {{baseUrl}}/admin/audit-logs?page=1&limit=10&action=create&resource=user&userId=1
+Authorization: Bearer {{token}}
+
+### 70. 获取审计日志详情
+GET {{baseUrl}}/admin/audit-logs/1
+Authorization: Bearer {{token}}
+
+### 71. 审计日志统计
+GET {{baseUrl}}/admin/audit-logs/stats/overview?startDate=2024-01-01&endDate=2024-01-31&dimension=action
+Authorization: Bearer {{token}}
+
+### 72. 导出审计日志
+POST {{baseUrl}}/admin/audit-logs/export
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "startDate": "2024-01-01",
+  "endDate": "2024-01-31",
+  "action": "create",
+  "resource": "user"
+}
+
+### 73. 批量删除审计日志
+DELETE {{baseUrl}}/admin/audit-logs/batch
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "ids": [1, 2, 3]
+}
+
+### 74. 清理过期审计日志
+POST {{baseUrl}}/admin/audit-logs/cleanup
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "days": 90
+}
+
+### ========== 系统管理接口 ==========
+
+### 75. 获取系统健康状态
+GET {{baseUrl}}/admin/system/health
+Authorization: Bearer {{token}}
+
+### 76. 获取系统配置
+GET {{baseUrl}}/admin/system/config
+Authorization: Bearer {{token}}
+
+### 77. 更新系统配置
+PUT {{baseUrl}}/admin/system/config
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "configs": [
+    {
+      "key": "system.maintenance_mode",
+      "value": "false",
+      "description": "系统维护模式"
+    },
+    {
+      "key": "order.max_duration",
+      "value": "60",
+      "description": "订单最大时长（分钟）"
+    }
+  ]
+}
+
+### 78. 系统备份
+POST {{baseUrl}}/admin/system/backup
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "backupType": "full",
+  "description": "月度全量备份"
+}
+
+### 79. 系统恢复
+POST {{baseUrl}}/admin/system/restore
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "backupId": "backup_20240115_001",
+  "restoreType": "database"
+}
+
+### 80. 获取系统监控数据
+GET {{baseUrl}}/admin/system/monitor?metric=cpu,memory,disk&timeRange=1h
+Authorization: Bearer {{token}}
+
+### 81. 生成系统报表
+POST {{baseUrl}}/admin/system/reports
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "reportType": "business_summary",
+  "startDate": "2024-01-01",
+  "endDate": "2024-01-31",
+  "format": "pdf"
+}
+
+### 82. 发送系统通知
+POST {{baseUrl}}/admin/system/notifications
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "系统维护通知",
+  "content": "系统将于今晚22:00-24:00进行维护，期间服务可能中断",
+  "type": "system",
+  "targetUsers": "all",
+  "priority": "high"
+}
+
+### ========== 测试流程示例 ==========
+
+### 完整的洗车流程测试
+# 1. 用户登录 (使用测试用例 3)
+# 2. 获取附近设备 (使用测试用例 12)
+# 3. 创建订单 (使用测试用例 19)
+# 4. 支付订单 (使用测试用例 24)
+# 5. 启动洗车 (使用测试用例 26)
+# 6. 完成洗车 (使用测试用例 27)
+# 7. 查看订单详情 (使用测试用例 22)
+
+### 商户管理流程测试
+# 1. 商户登录 (使用测试用例 83)
+# 2. 创建门店 (使用测试用例 86)
+# 3. 创建员工 (使用测试用例 91)
+# 4. 创建设备 (使用测试用例 96)
+# 5. 查看营收报表 (使用测试用例 112)
+
+### 后台管理流程测试
+# 1. 管理员登录 (使用测试用例 4)
+# 2. 创建商户 (使用测试用例 41)
+# 3. 创建门店 (使用测试用例 46)
+# 4. 批量创建设备 (使用测试用例 51)
+# 5. 查看审计日志 (使用测试用例 69)
+
+### 库存管理流程测试
+# 1. 商户登录 (使用测试用例 83)
+# 2. 查看库存列表 (使用测试用例 102)
+# 3. 更新库存 (使用测试用例 104)
+# 4. 查看库存告警 (使用测试用例 106)
+# 5. 处理告警 (使用测试用例 66)
+
+### ========== 商户管理系统接口 ==========
+
+### 83. 商户登录（获取商户token）
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "phone": "13800138003",
+  "password": "123456"
+}
+
+### 84. 获取商户资料
+GET {{baseUrl}}/merchant/profile
+Authorization: Bearer {{merchantToken}}
+
+### 85. 更新商户资料
+PUT {{baseUrl}}/merchant/profile
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "name": "更新后的商户名称",
+  "contactName": "李四",
+  "contactPhone": "13800138005",
+  "email": "updated@example.com",
+  "address": "北京市朝阳区更新街道456号"
+}
+
+### ========== 商户门店管理接口 ==========
+
+### 86. 创建门店
+POST {{baseUrl}}/merchant/stores
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "name": "商户自建门店001",
+  "address": "北京市海淀区商户路789号",
+  "longitude": 116.310003,
+  "latitude": 39.991957,
+  "contactPhone": "010-87654321",
+  "businessHours": "07:00-23:00"
+}
+
+### 87. 获取门店列表
+GET {{baseUrl}}/merchant/stores?page=1&limit=10&status=active
+Authorization: Bearer {{merchantToken}}
+
+### 88. 获取门店详情
+GET {{baseUrl}}/merchant/stores/1
+Authorization: Bearer {{merchantToken}}
+
+### 89. 更新门店信息
+PUT {{baseUrl}}/merchant/stores/1
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "name": "更新后的门店名称",
+  "businessHours": "08:00-22:00",
+  "contactPhone": "010-11111111"
+}
+
+### 90. 门店统计数据
+GET {{baseUrl}}/merchant/stores/1/stats?startDate=2024-01-01&endDate=2024-01-31
+Authorization: Bearer {{merchantToken}}
+
+### ========== 商户员工管理接口 ==========
+
+### 91. 创建门店员工
+POST {{baseUrl}}/merchant/staff
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "name": "张员工",
+  "phone": "13800138006",
+  "password": "123456",
+  "role": "store_manager",
+  "storeId": 1,
+  "position": "店长",
+  "salary": 8000.00
+}
+
+### 92. 获取员工列表
+GET {{baseUrl}}/merchant/staff?page=1&limit=10&storeId=1&role=store_staff
+Authorization: Bearer {{merchantToken}}
+
+### 93. 获取员工详情
+GET {{baseUrl}}/merchant/staff/1
+Authorization: Bearer {{merchantToken}}
+
+### 94. 更新员工信息
+PUT {{baseUrl}}/merchant/staff/1
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "name": "更新后的员工姓名",
+  "position": "副店长",
+  "salary": 9000.00,
+  "status": "active"
+}
+
+### 95. 删除员工
+DELETE {{baseUrl}}/merchant/staff/1
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "reason": "员工离职"
+}
+
+### ========== 商户设备管理接口 ==========
+
+### 96. 创建设备
+POST {{baseUrl}}/merchant/devices
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "name": "商户设备001",
+  "model": "WC-2024-Standard",
+  "iccid": "89860000000000000010",
+  "storeId": 1
+}
+
+### 97. 获取设备列表
+GET {{baseUrl}}/merchant/devices?page=1&limit=10&storeId=1&status=online
+Authorization: Bearer {{merchantToken}}
+
+### 98. 获取设备详情
+GET {{baseUrl}}/merchant/devices/1
+Authorization: Bearer {{merchantToken}}
+
+### 99. 更新设备信息
+PUT {{baseUrl}}/merchant/devices/1
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "name": "更新后的设备名称",
+  "status": "maintenance"
+}
+
+### 100. 设备实时状态
+GET {{baseUrl}}/merchant/devices/1/realtime-status
+Authorization: Bearer {{merchantToken}}
+
+### 101. 设备使用统计
+GET {{baseUrl}}/merchant/devices/1/usage-stats?startDate=2024-01-01&endDate=2024-01-31
+Authorization: Bearer {{merchantToken}}
+
+### ========== 商户库存管理接口 ==========
+
+### 102. 获取库存列表
+GET {{baseUrl}}/merchant/inventory?page=1&limit=10&storeId=1&lowStock=true
+Authorization: Bearer {{merchantToken}}
+
+### 103. 获取库存详情
+GET {{baseUrl}}/merchant/inventory/1
+Authorization: Bearer {{merchantToken}}
+
+### 104. 更新库存信息
+PUT {{baseUrl}}/merchant/inventory/1
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "currentStock": 150,
+  "minThreshold": 25,
+  "maxCapacity": 800
+}
+
+### 105. 库存操作记录
+GET {{baseUrl}}/merchant/inventory/1/operations?page=1&limit=10
+Authorization: Bearer {{merchantToken}}
+
+### 106. 库存告警列表
+GET {{baseUrl}}/merchant/inventory/alerts?page=1&limit=10&storeId=1&level=warning
+Authorization: Bearer {{merchantToken}}
+
+### ========== 商户订单管理接口 ==========
+
+### 107. 获取订单列表
+GET {{baseUrl}}/merchant/orders?page=1&limit=10&storeId=1&status=completed&startDate=2024-01-01
+Authorization: Bearer {{merchantToken}}
+
+### 108. 获取订单详情
+GET {{baseUrl}}/merchant/orders/1
+Authorization: Bearer {{merchantToken}}
+
+### 109. 订单统计
+GET {{baseUrl}}/merchant/orders/stats?storeId=1&startDate=2024-01-01&endDate=2024-01-31
+Authorization: Bearer {{merchantToken}}
+
+### 110. 订单趋势分析
+GET {{baseUrl}}/merchant/orders/trend?storeId=1&period=daily&days=30
+Authorization: Bearer {{merchantToken}}
+
+### 111. 导出订单报表
+POST {{baseUrl}}/merchant/orders/export
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "storeId": 1,
+  "startDate": "2024-01-01",
+  "endDate": "2024-01-31",
+  "format": "excel"
+}
+
+### ========== 商户报表分析接口 ==========
+
+### 112. 营收报表
+GET {{baseUrl}}/merchant/reports/revenue?storeId=1&period=monthly&year=2024
+Authorization: Bearer {{merchantToken}}
+
+### 113. 设备使用率报表
+GET {{baseUrl}}/merchant/reports/device-usage?storeId=1&startDate=2024-01-01&endDate=2024-01-31
+Authorization: Bearer {{merchantToken}}
+
+### 114. 客户分析报表
+GET {{baseUrl}}/merchant/reports/customer-analysis?storeId=1&period=monthly&months=6
+Authorization: Bearer {{merchantToken}}
+
+### 115. 运营概览
+GET {{baseUrl}}/merchant/dashboard/overview?storeId=1
+Authorization: Bearer {{merchantToken}}
+
+### 116. 实时监控数据
+GET {{baseUrl}}/merchant/dashboard/realtime?storeId=1
+Authorization: Bearer {{merchantToken}}
+
+### ========== 商户通知管理接口 ==========
+
+### 117. 获取通知列表
+GET {{baseUrl}}/merchant/notifications?page=1&limit=10&type=alert&unread=true
+Authorization: Bearer {{merchantToken}}
+
+### 118. 标记通知已读
+PUT {{baseUrl}}/merchant/notifications/1/read
+Authorization: Bearer {{merchantToken}}
+
+### 119. 批量标记已读
+POST {{baseUrl}}/merchant/notifications/batch-read
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "notificationIds": [1, 2, 3, 4, 5]
+}
+
+### 120. 通知设置
+GET {{baseUrl}}/merchant/notification-settings
+Authorization: Bearer {{merchantToken}}
+
+### 121. 更新通知设置
+PUT {{baseUrl}}/merchant/notification-settings
+Content-Type: application/json
+Authorization: Bearer {{merchantToken}}
+
+{
+  "emailNotifications": true,
+  "smsNotifications": false,
+  "alertTypes": ["low_stock", "device_offline", "order_completed"]
+}
+
+### ========== 错误测试用例 ==========
+
+### 122. 无效的登录凭据
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "phone": "13800138001",
+  "password": "wrongpassword"
+}
+
+### 123. 未授权访问管理员接口
+GET {{baseUrl}}/admin/dashboard/stats
+
+### 124. 无效的设备ID
+GET {{baseUrl}}/devices/999
+Authorization: Bearer {{token}}
+
+### 125. 余额不足创建订单
+POST {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "deviceId": 1,
+  "washType": "标准洗",
+  "duration": 15,
+  "amount": 1000.00
+}
+
+### 126. 重复注册相同手机号
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "phone": "13800138001",
+  "password": "123456",
+  "nickname": "重复用户"
+}
+
+### 127. 跨商户访问资源（权限测试）
+GET {{baseUrl}}/merchant/stores/999
+Authorization: Bearer {{merchantToken}}
+
+### 128. 员工访问管理员接口（权限测试）
+GET {{baseUrl}}/admin/users
+Authorization: Bearer {{staffToken}}
+
+### ========== 性能测试 ==========
+
+### 129. 批量获取设备列表
+GET {{baseUrl}}/devices?page=1&limit=100
+Authorization: Bearer {{token}}
+
+### 130. 批量获取订单列表
+GET {{baseUrl}}/orders?page=1&limit=100
+Authorization: Bearer {{token}}
+
+### 131. 大量日志查询
+GET {{baseUrl}}/admin/system/logs?limit=1000
+Authorization: Bearer {{token}}
+
+### 132. 大数据量报表查询
+GET {{baseUrl}}/merchant/reports/revenue?storeId=1&period=daily&startDate=2023-01-01&endDate=2024-01-31
+Authorization: Bearer {{merchantToken}}
+
+### ========== 变量定义 ==========
+
+@baseUrl = http://localhost:3000/api
+@token = your_user_token_here
+@adminToken = your_admin_token_here
+@merchantToken = your_merchant_token_here
+@staffToken = your_staff_token_here
+
+### ========== 使用说明 ==========
+
+### 1. 环境准备
+# - 确保后端服务已启动（默认端口3000）
+# - 数据库已正确配置并运行
+# - 所有依赖包已安装
+
+### 2. 测试流程建议
+# Step 1: 基础认证测试
+#   - 执行用户注册（测试用例 1）
+#   - 执行用户登录（测试用例 3）
+#   - 复制返回的token到@token变量
+
+# Step 2: 管理员功能测试
+#   - 执行管理员登录（测试用例 4）
+#   - 复制返回的token到@adminToken变量
+#   - 测试后台管理功能（测试用例 30-82）
+
+# Step 3: 商户功能测试
+#   - 先通过管理员创建商户（测试用例 41）
+#   - 使用商户账号登录（测试用例 83）
+#   - 复制返回的token到@merchantToken变量
+#   - 测试商户管理功能（测试用例 84-121）
+
+# Step 4: 完整业务流程测试
+#   - 按照测试流程示例执行完整的业务场景
+#   - 验证数据一致性和权限控制
+
+### 3. 权限说明
+# - platform_admin: 平台管理员，拥有所有权限
+# - merchant: 商户，只能管理自己的门店和数据
+# - store_manager: 门店经理，只能管理指定门店
+# - store_staff: 门店员工，只有基础操作权限
+# - user: 普通用户，只能使用洗车服务
+
+### 4. 数据隔离说明
+# - 商户只能访问自己的门店、设备、订单等数据
+# - 门店员工只能访问所属门店的数据
+# - 用户只能访问自己的订单和个人信息
+# - 跨域访问会返回403权限错误
+
+### 5. 错误处理
+# - 400: 请求参数错误
+# - 401: 未认证或token无效
+# - 403: 权限不足
+# - 404: 资源不存在
+# - 409: 资源冲突（如重复创建）
+# - 500: 服务器内部错误
+
+### 6. 性能建议
+# - 分页查询建议limit不超过100
+# - 大数据量导出建议异步处理
+# - 实时数据查询建议增加缓存
+# - 批量操作建议分批处理
+
+### 7. 安全注意事项
+# - 所有敏感操作都需要token认证
+# - 密码传输使用HTTPS加密
+# - 审计日志记录所有关键操作
+# - 定期清理过期的审计日志和缓存数据
+
+### 8. 监控和告警
+# - 系统健康状态监控（测试用例 75）
+# - 库存不足自动告警（测试用例 63-68）
+# - 设备离线状态监控
+# - 异常订单自动检测
+
+### 9. 备份和恢复
+# - 定期数据库备份（测试用例 78）
+# - 系统配置备份
+# - 灾难恢复测试（测试用例 79）
+
+### 10. 开发调试
+# - 使用VS Code REST Client插件
+# - 或使用Postman导入此文件
+# - 建议在测试环境中进行完整测试
+# - 生产环境部署前进行压力测试
+### 快速启动指南
+# 1. 启动后端服务：npm run start:dev
+# 2. 确保MySQL和Redis服务正常运行
+# 3. 运行数据库迁移：npm run migration:run
+# 4. 按照测试流程顺序执行API调用
+# 5. 在每次登录后，将返回的token复制到对应变量中
+# 6. 根据实际返回的ID更新测试用例中的ID参数
+# 7. 观察返回结果，验证API功能是否正常
+
+### 重要提醒
+# - 某些接口需要管理员权限，请使用管理员账号登录获取token
+# - 设备回调接口无需认证，可直接调用
+# - 订单相关操作需要确保用户有足够余额
+# - 删除操作为软删除，数据不会真正删除
+# - 建议使用VS Code REST Client插件或Postman进行测试

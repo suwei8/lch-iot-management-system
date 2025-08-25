@@ -1,0 +1,31 @@
+import { Merchant } from '../../merchant/entities/merchant.entity';
+import { Device } from '../../device/entities/device.entity';
+import { Order } from '../../order/entities/order.entity';
+import { Inventory } from '../../inventory/entities/inventory.entity';
+import { User } from '../../user/entities/user.entity';
+import { Alert } from '../../alert/entities/alert.entity';
+export declare class Store {
+    id: number;
+    name: string;
+    code: string;
+    address: string;
+    longitude: number;
+    latitude: number;
+    contact: string;
+    phone: string;
+    status: string;
+    businessHours: string;
+    description: string;
+    basicPrice: number;
+    premiumPrice: number;
+    deluxePrice: number;
+    createdAt: Date;
+    updatedAt: Date;
+    merchantId: number;
+    merchant: Merchant;
+    devices: Device[];
+    orders: Order[];
+    inventory: Inventory[];
+    staff: User[];
+    alerts: Alert[];
+}

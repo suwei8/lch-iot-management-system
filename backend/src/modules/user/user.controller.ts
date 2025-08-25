@@ -1,0 +1,150 @@
+import {
+  Controller,
+  Get,
+  Put,
+  Delete,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+  Request,
+  ParseIntPipe,
+} from '@nestjs/common';
+import { UserService } from './user.service';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../../common/guards/roles.guard';
+import { Roles, UserRole } from '../../common/decorators/roles.decorator';
+import { UpdateUserDto } from './dto/update-user.dto';
+
+/**
+ * 用户控制器
+ */
+@Controller('users')
+@UseGuards(JwtAuthGuard)
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  /**
+   * 获取当前用户信息
+   * @param req 请求对象
+   */
+  @Get('profile')
+  async getProfile(@Request() req) {
+    const user = await this.userService.findById(req.user.userId);
+    return {
+      id: user.id,
+      phone: user.phone,
+      nickname: user.nickname,
+      role: user.role,
+      avatar: user.avatar,
+      balance: user.balance,
+      status: user.status,
+      lastLoginAt: user.lastLoginAt,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+  }
+
+  /**
+   * 更新当前用户信息
+   * @param req 请求对象
+   * @param updateUserDto 更新数据
+   */
+  @Put('profile')
+  async updateProfile(@Request() req, @Body() updateUserDto: UpdateUserDto) {
+    const updatedUser = await this.userService.update(req.user.userId, updateUserDto);
+    return {
+      id: updatedUser.id,
+      phone: updatedUser.phone,
+      nickname: updatedUser.nickname,
+      role: updatedUser.role,
+      avatar: updatedUser.avatar,
+      balance: updatedUser.balance,
+      status: updatedUser.status,
+      lastLoginAt: updatedUser.lastLoginAt,
+      createdAt: updatedUser.createdAt,
+      updatedAt: updatedUser.updatedAt,
+    };
+  }
+
+  /**
+   * 获取用户列表（仅管理员）
+   * @param page 页码
+   * @param limit 每页数量
+   * @param role 角色筛选
+   * @param status 状态筛选
+   */
+  @Get()
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.PLATFORM_ADMIN)
+  async findAll(
+    @Query('page', ParseIntPipe) page: number = 1,
+    @Query('limit', ParseIntPipe) limit: number = 10,
+    @Query('role') role?: UserRole,
+    @Query('status') status?: string,
+  ) {
+    return await this.userService.findAll(page, limit, role, status);
+  }
+
+  /**
+   * 获取指定用户信息（仅管理员）
+   * @param id 用户ID
+   */
+  @Get(':id')
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.PLATFORM_ADMIN)
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const user = await this.userService.findById(id);
+    return {
+      id: user.id,
+      phone: user.phone,
+      nickname: user.nickname,
+      role: user.role,
+      avatar: user.avatar,
+      balance: user.balance,
+      status: user.status,
+      lastLoginAt: user.lastLoginAt,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+  }
+
+  /**
+   * 更新指定用户信息（仅管理员）
+   * @param id 用户ID
+   * @param updateUserDto 更新数据
+   */
+  @Put(':id')
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.PLATFORM_ADMIN)
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    const updatedUser = await this.userService.update(id, updateUserDto);
+    return {
+      id: updatedUser.id,
+      phone: updatedUser.phone,
+      nickname: updatedUser.nickname,
+      role: updatedUser.role,
+      avatar: updatedUser.avatar,
+      balance: updatedUser.balance,
+      status: updatedUser.status,
+      lastLoginAt: updatedUser.lastLoginAt,
+      createdAt: updatedUser.createdAt,
+      updatedAt: updatedUser.updatedAt,
+    };
+  }
+
+  /**
+   * 删除用户（仅管理员）
+   * @param id 用户ID
+   */
+  @Delete(':id')
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.PLATFORM_ADMIN)
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    await this.userService.remove(id);
+    return { message: '用户删除成功' };
+  }
+}
