@@ -21,6 +21,8 @@ import {
   BellOutlined,
   LogoutOutlined,
   ProfileOutlined,
+  HomeOutlined,
+  FileTextOutlined,
 } from '@ant-design/icons';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore, useAppStore } from '@/store';
@@ -53,6 +55,16 @@ const AdminLayout: React.FC = () => {
       key: '/admin/merchants',
       icon: <ShopOutlined />,
       label: '商户管理',
+    },
+    {
+      key: '/admin/stores',
+      icon: <HomeOutlined />,
+      label: '门店管理',
+    },
+    {
+      key: '/admin/orders',
+      icon: <FileTextOutlined />,
+      label: '订单管理',
     },
     {
       key: '/admin/users',
@@ -228,7 +240,7 @@ const AdminLayout: React.FC = () => {
                     icon={<UserOutlined />}
                     className="user-avatar"
                   />
-                  <span className="user-name">{user?.username || '管理员'}</span>
+                  <span className="user-name">{user?.nickname || '管理员'}</span>
                 </div>
               </Dropdown>
             </Space>

@@ -25,16 +25,37 @@ export declare class AdminService {
     private redisService;
     constructor(userRepository: Repository<User>, merchantRepository: Repository<Merchant>, storeRepository: Repository<Store>, deviceRepository: Repository<Device>, orderRepository: Repository<Order>, inventoryRepository: Repository<Inventory>, alertRepository: Repository<Alert>, auditLogRepository: Repository<AuditLog>, deviceLogRepository: Repository<DeviceLog>, dataSource: DataSource, redisService: RedisService);
     getDashboardStats(): Promise<{
-        userCount: number;
-        merchantCount: number;
-        storeCount: number;
-        deviceCount: number;
-        orderCount: number;
+        totalMerchants: number;
+        totalUsers: number;
+        totalStores: number;
+        totalDevices: number;
+        totalOrders: number;
         totalRevenue: number;
-        todayOrderCount: number;
+        todayOrders: number;
         todayRevenue: number;
-        onlineDeviceCount: number;
-        deviceOnlineRate: string;
+        onlineDevices: number;
+        offlineDevices: number;
+        maintenanceDevices: number;
+        activeDevices: number;
+        totalDataCount: number;
+        todayDataCount: number;
+        todayDataRecords: number;
+        todayAlerts: number;
+        deviceStatusDistribution: {
+            online: number;
+            offline: number;
+            maintenance: number;
+        };
+        merchantStatusDistribution: {
+            active: number;
+            inactive: number;
+            pending: number;
+        };
+        systemStats: {
+            cpuUsage: number;
+            memoryUsage: number;
+            diskUsage: number;
+        };
     }>;
     getUserTrend(days?: number): Promise<any[]>;
     getOrderTrend(days?: number): Promise<any[]>;

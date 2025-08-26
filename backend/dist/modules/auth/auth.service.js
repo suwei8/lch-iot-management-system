@@ -77,18 +77,16 @@ let AuthService = class AuthService {
     }
     generateToken(user) {
         const payload = {
-            userId: user.id,
+            sub: user.id,
             phone: user.phone,
             role: user.role,
         };
-        return this.jwtService.sign(payload, {
-            expiresIn: process.env.JWT_EXPIRES_IN || '7d',
-        });
+        return this.jwtService.sign(payload);
     }
     async validateToken(token) {
         try {
             const payload = this.jwtService.verify(token);
-            const user = await this.userService.findById(payload.userId);
+            const user = await this.userService.findById(payload.sub);
             if (!user || user.status !== 'active') {
                 throw new common_1.UnauthorizedException('无效的token');
             }

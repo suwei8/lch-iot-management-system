@@ -120,9 +120,13 @@ const AdminDevices: React.FC = () => {
         limit: number;
       }>('/admin/devices', params);
       
+      // 调试：输出接口返回数据
+      console.log('设备列表API响应:', response);
+      console.log('设备列表数据:', response.data);
+      
       if (response.success) {
-        setDevices(response.data.data);
-        setTotal(response.data.total);
+        setDevices(response.data.data || response.data || []);
+        setTotal(response.data.total || 0);
       }
     } catch (error) {
       message.error('加载设备列表失败');
@@ -136,7 +140,7 @@ const AdminDevices: React.FC = () => {
     try {
       const response = await ApiService.get<{
         data: Merchant[];
-      }>('/admin/merchants', { limit: 1000 });
+      }>('/admin/merchants', { limit: 100 });
       
       if (response.success) {
         setMerchants(response.data.data);

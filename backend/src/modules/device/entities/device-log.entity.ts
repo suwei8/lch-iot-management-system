@@ -21,14 +21,14 @@ export class DeviceLog {
   /**
    * 设备ID
    */
-  @Column({ length: 50 })
+  @Column({ type: 'varchar', length: 50 })
   @Index('idx_device_log_devid')
   devid: string;
 
   /**
    * 事件类型：online-上线，offline-下线，cmd:09-启动回执，cmd:10-结算，cmd:13-配置，cmd:19-缺水缺液
    */
-  @Column({ length: 20 })
+  @Column({ type: 'varchar', length: 20 })
   eventType: string;
 
   /**
@@ -46,7 +46,7 @@ export class DeviceLog {
   /**
    * 订单号（如果相关）
    */
-  @Column({ length: 32, nullable: true })
+  @Column({ type: 'varchar', length: 32, nullable: true })
   @Index('idx_device_log_order_no')
   orderNo: string;
 
@@ -82,7 +82,7 @@ export class DeviceLog {
   /**
    * 设备ID（外键）
    */
-  @Column({ nullable: true })
+  @Column({ type: 'int', nullable: true })
   deviceId: number;
 
   /**

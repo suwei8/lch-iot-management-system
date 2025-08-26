@@ -92,7 +92,7 @@ const AdminAnalytics: React.FC = () => {
     try {
       const response = await ApiService.get('/admin/merchants', {
         page: 1,
-        pageSize: 1000,
+        limit: 100,
         status: 'active'
       });
       setMerchants(response.data || []);

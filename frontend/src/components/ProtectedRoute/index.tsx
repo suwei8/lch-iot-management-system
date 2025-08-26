@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/store';
-import { UserRole } from '@/types';
+import { UserRole } from '@/types/user';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -35,9 +35,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   // 检查角色权限
   if (requiredRole && user.role !== requiredRole) {
-    // 根据用户角色重定向到对应的首页
-    const defaultPath = user.role === 'admin' ? '/admin' : '/merchant';
-    return <Navigate to={defaultPath} replace />;
+    // 特殊处理：platform_admin 可以访问 admin 路由
+    if (requiredRole === 'admin' && user.role === 'platform_admin') {
+      // 允许访问
+    } else {
+      // 根据用户角色重定向到对应的首页
+      const defaultPath = user.role === 'admin' || user.role === 'platform_admin' ? '/admin' : '/merchant';
+      return <Navigate to={defaultPath} replace />;
+    }
   }
 
   return <>{children}</>;

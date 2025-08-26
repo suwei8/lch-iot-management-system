@@ -20,12 +20,12 @@ __decorate([
     __metadata("design:type", Number)
 ], DeviceLog.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 50 }),
+    (0, typeorm_1.Column)({ type: 'varchar', length: 50 }),
     (0, typeorm_1.Index)('idx_device_log_devid'),
     __metadata("design:type", String)
 ], DeviceLog.prototype, "devid", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 20 }),
+    (0, typeorm_1.Column)({ type: 'varchar', length: 20 }),
     __metadata("design:type", String)
 ], DeviceLog.prototype, "eventType", void 0);
 __decorate([
@@ -37,7 +37,7 @@ __decorate([
     __metadata("design:type", Object)
 ], DeviceLog.prototype, "parsedData", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 32, nullable: true }),
+    (0, typeorm_1.Column)({ type: 'varchar', length: 32, nullable: true }),
     (0, typeorm_1.Index)('idx_device_log_order_no'),
     __metadata("design:type", String)
 ], DeviceLog.prototype, "orderNo", void 0);
@@ -63,7 +63,7 @@ __decorate([
     __metadata("design:type", Date)
 ], DeviceLog.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ type: 'int', nullable: true }),
     __metadata("design:type", Number)
 ], DeviceLog.prototype, "deviceId", void 0);
 __decorate([

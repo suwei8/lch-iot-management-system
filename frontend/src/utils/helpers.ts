@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -270,44 +269,45 @@ export const fileUtils = {
 };
 
 /**
- * 消息提示工具
+ * 消息提示工具工厂函数
+ * 需要传入message实例来创建工具函数
  */
-export const messageUtils = {
+export const createMessageUtils = (messageInstance: any) => ({
   /**
    * 成功提示
    */
   success: (content: string, duration = 3): void => {
-    message.success(content, duration);
+    messageInstance.success(content, duration);
   },
 
   /**
    * 错误提示
    */
   error: (content: string, duration = 3): void => {
-    message.error(content, duration);
+    messageInstance.error(content, duration);
   },
 
   /**
    * 警告提示
    */
   warning: (content: string, duration = 3): void => {
-    message.warning(content, duration);
+    messageInstance.warning(content, duration);
   },
 
   /**
    * 信息提示
    */
   info: (content: string, duration = 3): void => {
-    message.info(content, duration);
+    messageInstance.info(content, duration);
   },
 
   /**
    * 加载提示
    */
   loading: (content: string, duration = 0): () => void => {
-    return message.loading(content, duration);
+    return messageInstance.loading(content, duration);
   },
-};
+});
 
 /**
  * 本地存储工具

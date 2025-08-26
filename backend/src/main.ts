@@ -5,6 +5,8 @@ import { AppModule } from './app.module';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
 import { WinstonModule } from 'nest-winston';
 import { createLogger } from './common/logger/logger.config';
+import { DataSource } from 'typeorm';
+import { runSeeds } from './seeds/seed';
 
 async function bootstrap() {
   // 创建应用实例，使用Winston日志
@@ -112,6 +114,17 @@ async function bootstrap() {
   console.log('🚀 亮车惠后端服务已启动，端口: 8000');
   console.log(`📚 Swagger文档地址: http://localhost:8000/api-docs`);
   console.log(`📄 API规范JSON: http://localhost:8000/api-docs-json`);
+
+  // 初始化种子数据（仅在开发环境）
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      const dataSource = app.get(DataSource);
+      await runSeeds(dataSource);
+      console.log('✅ 种子数据初始化完成');
+    } catch (error) {
+      console.warn('⚠️ 种子数据初始化失败:', error.message);
+    }
+  }
 }
 
 bootstrap();

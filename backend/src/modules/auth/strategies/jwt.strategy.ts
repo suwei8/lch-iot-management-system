@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET || 'sw63828!',
+      secretOrKey: process.env.JWT_SECRET,
     });
   }
 
@@ -21,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    * @param payload JWT载荷
    */
   async validate(payload: any) {
-    const { userId } = payload;
+    const { sub: userId } = payload;
     
     // 根据用户ID查找用户
     const user = await this.userService.findById(userId);

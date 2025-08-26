@@ -1,14 +1,7 @@
-// 用户相关类型定义
-export interface User {
-  id: number;
-  username: string;
-  email: string;
-  role: 'admin' | 'merchant';
-  status: 'active' | 'inactive';
-  createdAt: string;
-  updatedAt: string;
-  profile?: UserProfile;
-}
+import { User } from './user';
+
+// 用户相关类型定义已移至 types/user.ts
+// 请从 '@/types/user' 导入 User, UserRole, UserStatus 等类型
 
 export interface UserProfile {
   id: number;
@@ -36,6 +29,30 @@ export interface Merchant {
   deviceCount?: number;
   activeDevices?: number;
   todayDataCount?: number;
+}
+
+// 门店相关类型定义
+export interface Store {
+  id: number;
+  name: string;
+  code: string;
+  merchantId: number;
+  merchant?: Merchant;
+  address: string;
+  contactPerson: string;
+  contactPhone: string;
+  contactEmail?: string;
+  description?: string;
+  status: 'active' | 'inactive' | 'maintenance';
+  deviceCount?: number;
+  activeDevices?: number;
+  offlineDevices?: number;
+  maintenanceDevices?: number;
+  todayDataCount?: number;
+  totalDataCount?: number;
+  createdAt: string;
+  updatedAt: string;
+  lastActiveTime?: string;
 }
 
 // 设备相关类型定义
@@ -98,7 +115,7 @@ export interface PaginatedResponse<T = any> {
     items: T[];
     total: number;
     page: number;
-    pageSize: number;
+    limit: number;
     totalPages: number;
   };
   message: string;
@@ -108,16 +125,15 @@ export interface PaginatedResponse<T = any> {
 // 分页查询参数
 export interface PaginationParams {
   page?: number;
-  pageSize?: number;
+  limit?: number;
   sortBy?: string;
   sortOrder?: 'ASC' | 'DESC';
 }
 
 // 登录相关类型定义
 export interface LoginRequest {
-  username: string;
+  phone: string;
   password: string;
-  role: 'admin' | 'merchant';
 }
 
 export interface LoginResponse {
@@ -138,6 +154,21 @@ export interface CreateMerchantRequest {
 
 export interface UpdateMerchantRequest extends Partial<CreateMerchantRequest> {
   status?: 'active' | 'inactive' | 'pending';
+}
+
+export interface CreateStoreRequest {
+  name: string;
+  code: string;
+  merchantId: number;
+  address: string;
+  contactPerson: string;
+  contactPhone: string;
+  contactEmail?: string;
+  description?: string;
+}
+
+export interface UpdateStoreRequest extends Partial<CreateStoreRequest> {
+  status?: 'active' | 'inactive' | 'maintenance';
 }
 
 export interface CreateDeviceRequest {
@@ -238,5 +269,4 @@ export interface AppState {
   setCollapsed: (collapsed: boolean) => void;
 }
 
-// 用户角色类型定义
-export type UserRole = 'admin' | 'merchant';
+// 用户角色类型定义已移至 types/user.ts

@@ -9,11 +9,11 @@ const order_entity_1 = require("../modules/order/entities/order.entity");
 const device_log_entity_1 = require("../modules/device/entities/device-log.entity");
 const databaseConfig = () => ({
     type: 'mysql',
-    host: process.env.MYSQL_HOST || 'localhost',
-    port: parseInt(process.env.MYSQL_PORT, 10) || 3306,
-    username: process.env.MYSQL_USERNAME || 'root',
-    password: process.env.MYSQL_PASSWORD || 'sw63828',
-    database: process.env.MYSQL_DATABASE || 'lch_db',
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT, 10) || 3306,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
     entities: [user_entity_1.User, merchant_entity_1.Merchant, device_entity_1.Device, order_entity_1.Order, device_log_entity_1.DeviceLog],
     synchronize: false,
     migrations: ['dist/migrations/*.js'],
@@ -25,11 +25,11 @@ const databaseConfig = () => ({
 exports.databaseConfig = databaseConfig;
 exports.AppDataSource = new typeorm_1.DataSource({
     type: 'mysql',
-    host: process.env.MYSQL_HOST || 'localhost',
-    port: parseInt(process.env.MYSQL_PORT, 10) || 3306,
-    username: process.env.MYSQL_USERNAME || 'root',
-    password: process.env.MYSQL_PASSWORD || 'sw63828',
-    database: process.env.MYSQL_DATABASE || 'lch_db',
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT, 10),
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
     entities: ['src/**/*.entity.ts'],
     migrations: ['src/migrations/*.ts'],
     synchronize: false,

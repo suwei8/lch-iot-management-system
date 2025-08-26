@@ -5,16 +5,37 @@ export declare class AdminController {
     private readonly adminService;
     constructor(adminService: AdminService);
     getDashboardStats(): Promise<{
-        userCount: number;
-        merchantCount: number;
-        storeCount: number;
-        deviceCount: number;
-        orderCount: number;
+        totalMerchants: number;
+        totalUsers: number;
+        totalStores: number;
+        totalDevices: number;
+        totalOrders: number;
         totalRevenue: number;
-        todayOrderCount: number;
+        todayOrders: number;
         todayRevenue: number;
-        onlineDeviceCount: number;
-        deviceOnlineRate: string;
+        onlineDevices: number;
+        offlineDevices: number;
+        maintenanceDevices: number;
+        activeDevices: number;
+        totalDataCount: number;
+        todayDataCount: number;
+        todayDataRecords: number;
+        todayAlerts: number;
+        deviceStatusDistribution: {
+            online: number;
+            offline: number;
+            maintenance: number;
+        };
+        merchantStatusDistribution: {
+            active: number;
+            inactive: number;
+            pending: number;
+        };
+        systemStats: {
+            cpuUsage: number;
+            memoryUsage: number;
+            diskUsage: number;
+        };
     }>;
     getUserGrowthTrend(): Promise<any[]>;
     getOrderTrend(): Promise<any[]>;

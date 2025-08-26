@@ -7,6 +7,17 @@ import LoginPage from '@/pages/Login';
 import AdminLayout from '@/layouts/AdminLayout';
 import MerchantLayout from '@/layouts/MerchantLayout';
 import NotFound from '@/pages/NotFound';
+import Unauthorized from '@/pages/Unauthorized';
+import AdminDashboard from '@/pages/Admin/Dashboard';
+import AdminMerchants from '@/pages/Admin/Merchants';
+import AdminStores from '@/pages/Admin/Stores';
+import AdminDevices from '@/pages/Admin/Devices';
+import AdminOrders from '@/pages/Admin/Orders';
+import UserManagement from '@/pages/Admin/UserManagement';
+import MerchantDashboard from '@/pages/Merchant/Dashboard';
+import MerchantDevices from '@/pages/Merchant/Devices';
+import MerchantOrders from '@/pages/Merchant/Orders';
+import MerchantAnalytics from '@/pages/Merchant/Analytics';
 import './App.css';
 
 // 路由守卫组件
@@ -24,7 +35,12 @@ const ProtectedRoute: React.FC<{
 
   // 角色权限检查
   if (requiredRole && user?.role !== requiredRole) {
-    return <Navigate to="/unauthorized" replace />;
+    // 特殊处理：platform_admin 可以访问 admin 路由
+    if (requiredRole === 'admin' && user?.role === 'platform_admin') {
+      // 允许访问
+    } else {
+      return <Navigate to="/unauthorized" replace />;
+    }
   }
 
   return <>{children}</>;
@@ -39,7 +55,7 @@ const LoginRedirect: React.FC = () => {
   }
 
   // 根据用户角色重定向到对应的后台
-  if (user?.role === 'admin') {
+  if (user?.role === 'admin' || user?.role === 'platform_admin') {
     return <Navigate to="/admin" replace />;
   } else if (user?.role === 'merchant') {
     return <Navigate to="/merchant" replace />;
@@ -93,7 +109,7 @@ const App: React.FC = () => {
               path="/"
               element={
                 isAuthenticated ? (
-                  user?.role === 'admin' ? (
+                  user?.role === 'admin' || user?.role === 'platform_admin' ? (
                     <Navigate to="/admin" replace />
                   ) : (
                     <Navigate to="/merchant" replace />
@@ -106,36 +122,53 @@ const App: React.FC = () => {
             
             {/* 管理员后台路由 */}
             <Route
-              path="/admin/*"
+              path="/admin"
               element={
                 <ProtectedRoute requiredRole="admin">
                   <AdminLayout />
                 </ProtectedRoute>
               }
-            />
+            >
+              <Route index element={<AdminDashboard />} />
+              <Route path="merchants" element={<AdminMerchants />} />
+              <Route path="stores" element={<AdminStores />} />
+              <Route path="devices" element={<AdminDevices />} />
+              <Route path="orders" element={<AdminOrders />} />
+              <Route path="users" element={<UserManagement />} />
+              <Route path="data" element={<div>数据管理页面开发中...</div>} />
+              <Route path="settings" element={<div>系统设置页面开发中...</div>} />
+            </Route>
             
             {/* 商户后台路由 */}
             <Route
-              path="/merchant/*"
+              path="/merchant"
               element={
                 <ProtectedRoute requiredRole="merchant">
                   <MerchantLayout />
                 </ProtectedRoute>
               }
-            />
+            >
+              {/* 商户仪表板 - 默认页面 */}
+              <Route index element={<MerchantDashboard />} />
+              <Route path="dashboard" element={<MerchantDashboard />} />
+              
+              {/* 设备管理 */}
+              <Route path="devices" element={<MerchantDevices />} />
+              
+              {/* 订单管理 */}
+              <Route path="orders" element={<MerchantOrders />} />
+              
+              {/* 数据分析 */}
+              <Route path="data" element={<MerchantAnalytics />} />
+              
+              {/* 待开发的页面 - 临时显示开发中提示 */}
+              <Route path="reports" element={<div style={{padding: '24px', textAlign: 'center'}}>报表中心开发中...</div>} />
+              <Route path="profile" element={<div style={{padding: '24px', textAlign: 'center'}}>商户信息页面开发中...</div>} />
+              <Route path="settings" element={<div style={{padding: '24px', textAlign: 'center'}}>账户设置页面开发中...</div>} />
+            </Route>
             
             {/* 未授权页面 */}
-            <Route
-              path="/unauthorized"
-              element={
-                <div className="flex-center full-height">
-                  <div className="text-center">
-                    <h2>403 - 访问被拒绝</h2>
-                    <p>您没有权限访问此页面</p>
-                  </div>
-                </div>
-              }
-            />
+            <Route path="/unauthorized" element={<Unauthorized />} />
             
             {/* 404页面 */}
             <Route path="*" element={<NotFound />} />

@@ -29,7 +29,7 @@ import { Line, Column, Pie } from '@ant-design/plots';
 import { useDataStore } from '@/store';
 import { ApiService } from '@/utils/api';
 import { formatDate } from '@/utils/helpers';
-import type { DashboardStats, Merchant, Device, DataRecord } from '@/types';
+import type { DashboardStats, Merchant, Device, DataRecord, PaginatedResponse } from '@/types';
 import './index.css';
 
 const { RangePicker } = DatePicker;
@@ -45,7 +45,11 @@ const AdminDashboard: React.FC = () => {
   const [recentMerchants, setRecentMerchants] = useState<Merchant[]>([]);
   const [activeDevices, setActiveDevices] = useState<Device[]>([]);
   const [recentData, setRecentData] = useState<DataRecord[]>([]);
-  const [chartData, setChartData] = useState({
+  const [chartData, setChartData] = useState<{
+    deviceTrend: Array<{ status: string; count: number }>;
+    dataTrend: Array<{ date: string; count: number }>;
+    merchantDistribution: Array<{ type: string; value: number }>;
+  }>({
     deviceTrend: [],
     dataTrend: [],
     merchantDistribution: [],
@@ -56,19 +60,71 @@ const AdminDashboard: React.FC = () => {
     setLoading(true);
     try {
       // 并行加载所有数据
-      const [statsRes, merchantsRes, devicesRes, dataRes, chartRes] = await Promise.all([
-        ApiService.get<DashboardStats>('/admin/dashboard/stats'),
-        ApiService.get<Merchant[]>('/admin/merchants?limit=5&sort=createdAt:desc'),
-        ApiService.get<Device[]>('/admin/devices?status=active&limit=10'),
-        ApiService.get<DataRecord[]>('/admin/data?limit=10&sort=timestamp:desc'),
-        ApiService.get('/admin/dashboard/charts'),
+      const [statsRes, merchantsRes, devicesRes] = await Promise.all([
+        ApiService.get<DashboardStats>('/api/v1/admin/dashboard/stats'),
+        ApiService.get<PaginatedResponse<Merchant>>('/api/v1/admin/merchants?limit=5'),
+        ApiService.get<PaginatedResponse<Device>>('/api/v1/devices?limit=10'),
       ]);
+      
+      // 模拟图表数据，因为后端暂时没有对应接口
+      const mockChartData = {
+        dataTrend: [
+          { date: '2024-01-01', count: 120 },
+          { date: '2024-01-02', count: 150 },
+          { date: '2024-01-03', count: 180 },
+          { date: '2024-01-04', count: 200 },
+          { date: '2024-01-05', count: 220 },
+          { date: '2024-01-06', count: 250 },
+          { date: '2024-01-07', count: 280 },
+        ],
+        deviceTrend: [
+          { status: 'active', count: 25 },
+          { status: 'inactive', count: 8 },
+          { status: 'maintenance', count: 3 },
+        ],
+        merchantDistribution: [
+          { type: '餐饮', value: 45 },
+          { type: '零售', value: 30 },
+          { type: '服务', value: 15 },
+          { type: '其他', value: 10 },
+        ],
+      };
 
       if (statsRes.success) setStats(statsRes.data);
-      if (merchantsRes.success) setRecentMerchants(merchantsRes.data);
-      if (devicesRes.success) setActiveDevices(devicesRes.data);
-      if (dataRes.success) setRecentData(dataRes.data);
-      if (chartRes.success) setChartData(chartRes.data);
+      if (merchantsRes.success && merchantsRes.data && Array.isArray(merchantsRes.data.data)) {
+        setRecentMerchants(merchantsRes.data.data);
+      }
+      if (devicesRes.success && devicesRes.data && Array.isArray(devicesRes.data.data)) {
+        setActiveDevices(devicesRes.data.data);
+      }
+      
+      // 使用模拟的图表数据
+      setChartData(mockChartData);
+      
+      // 模拟数据记录
+      const mockDataRecords: DataRecord[] = [
+        {
+          id: 1,
+          deviceId: 1,
+          deviceName: '温度传感器001',
+          dataType: '温度',
+          value: '25.6',
+          unit: '°C',
+          timestamp: new Date().toISOString(),
+          createdAt: new Date().toISOString(),
+        },
+        {
+          id: 2,
+          deviceId: 2,
+          deviceName: '湿度传感器002',
+          dataType: '湿度',
+          value: '68.2',
+          unit: '%',
+          timestamp: new Date(Date.now() - 300000).toISOString(),
+          createdAt: new Date(Date.now() - 300000).toISOString(),
+        },
+      ];
+      setRecentData(mockDataRecords);
     } catch (error) {
       console.error('加载仪表板数据失败:', error);
     } finally {
@@ -139,7 +195,6 @@ const AdminDashboard: React.FC = () => {
     color: '#1890ff',
     point: {
       size: 3,
-      shape: 'circle',
     },
     tooltip: {
       formatter: (datum: any) => {
@@ -155,8 +210,7 @@ const AdminDashboard: React.FC = () => {
     colorField: 'type',
     radius: 0.8,
     label: {
-      type: 'outer',
-      content: '{name} {percentage}',
+      content: (data: any) => `${data.type} ${((data.value / chartData.merchantDistribution.reduce((sum: number, item: any) => sum + item.value, 0)) * 100).toFixed(1)}%`,
     },
     interactions: [{ type: 'element-active' }],
   };
@@ -164,7 +218,7 @@ const AdminDashboard: React.FC = () => {
   if (loading) {
     return (
       <div className="dashboard-loading">
-        <Spin size="large" tip="加载仪表板数据..." />
+        <Spin size="large" />
       </div>
     );
   }
@@ -209,12 +263,12 @@ const AdminDashboard: React.FC = () => {
           <Card>
             <Statistic
               title="在线设备"
-              value={stats?.activeDevices || 0}
+              value={stats?.onlineDevices || 0}
               prefix={<LineChartOutlined />}
               valueStyle={{ color: '#faad14' }}
               suffix={
                 <span className="device-rate">
-                  ({((stats?.activeDevices || 0) / (stats?.totalDevices || 1) * 100).toFixed(1)}%)
+                  ({((stats?.onlineDevices || 0) / (stats?.totalDevices || 1) * 100).toFixed(1)}%)
                 </span>
               }
             />

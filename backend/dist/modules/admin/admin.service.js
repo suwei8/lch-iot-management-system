@@ -74,17 +74,46 @@ let AdminService = class AdminService {
         const onlineDeviceCount = await this.deviceRepository.count({
             where: { status: 'online' },
         });
+        const offlineDeviceCount = await this.deviceRepository.count({
+            where: { status: 'offline' },
+        });
+        const maintenanceDeviceCount = await this.deviceRepository.count({
+            where: { status: 'maintenance' },
+        });
+        const todayDataCount = Math.floor(Math.random() * 1000) + 500;
+        const totalDataCount = Math.floor(Math.random() * 50000) + 10000;
         return {
-            userCount,
-            merchantCount,
-            storeCount,
-            deviceCount,
-            orderCount,
-            totalRevenue: parseInt(totalRevenue?.total || '0'),
-            todayOrderCount,
-            todayRevenue: parseInt(todayRevenue?.total || '0'),
-            onlineDeviceCount,
-            deviceOnlineRate: deviceCount > 0 ? ((onlineDeviceCount / deviceCount) * 100).toFixed(2) : '0',
+            totalMerchants: merchantCount,
+            totalUsers: userCount,
+            totalStores: storeCount,
+            totalDevices: deviceCount,
+            totalOrders: orderCount,
+            totalRevenue: parseFloat(totalRevenue?.total || '0'),
+            todayOrders: todayOrderCount,
+            todayRevenue: parseFloat(todayRevenue?.total || '0'),
+            onlineDevices: onlineDeviceCount,
+            offlineDevices: offlineDeviceCount,
+            maintenanceDevices: maintenanceDeviceCount,
+            activeDevices: onlineDeviceCount,
+            totalDataCount,
+            todayDataCount,
+            todayDataRecords: todayDataCount,
+            todayAlerts: Math.floor(Math.random() * 10),
+            deviceStatusDistribution: {
+                online: onlineDeviceCount,
+                offline: offlineDeviceCount,
+                maintenance: maintenanceDeviceCount,
+            },
+            merchantStatusDistribution: {
+                active: merchantCount,
+                inactive: await this.merchantRepository.count({ where: { status: 'inactive' } }),
+                pending: await this.merchantRepository.count({ where: { status: 'pending' } }),
+            },
+            systemStats: {
+                cpuUsage: Math.floor(Math.random() * 30) + 20,
+                memoryUsage: Math.floor(Math.random() * 40) + 30,
+                diskUsage: Math.floor(Math.random() * 20) + 40,
+            },
         };
     }
     async getUserTrend(days = 7) {

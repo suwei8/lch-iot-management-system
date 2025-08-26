@@ -1,44 +1,37 @@
 version: '3.8'
 
 services:
+  # MySQL数据库
   mysql:
     image: mysql:8.0
-    container_name: lch_mysql
-    restart: always
+    container_name: lch_mysql_dev
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: sw63828
-      MYSQL_DATABASE: lch_db
+      MYSQL_DATABASE: lch_iot
       MYSQL_USER: lch_user
-      MYSQL_PASSWORD: sw63828
+      MYSQL_PASSWORD: lch_password
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./backend/src/migrations:/docker-entrypoint-initdb.d
     command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
+  # Redis缓存
   redis:
     image: redis:7-alpine
-    container_name: lch_redis
-    restart: always
+    container_name: lch_redis_dev
+    restart: unless-stopped
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
     command: redis-server --appendonly yes
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: lch_phpmyadmin
-    restart: always
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: sw63828
-    ports:
-      - "8080:80"
-    depends_on:
-      - mysql
 
 volumes:
   mysql_data:
@@ -46,4 +39,4 @@ volumes:
 
 networks:
   default:
-    name: lch_network
+    name: lch-dev-network

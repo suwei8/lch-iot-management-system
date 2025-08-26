@@ -9,7 +9,6 @@ import {
   Form,
   Input,
   Select,
-  message,
   Popconfirm,
   Drawer,
   Descriptions,
@@ -38,6 +37,7 @@ import {
 } from '@ant-design/icons';
 import { ApiService } from '@/utils/api';
 import { formatDate } from '@/utils/helpers';
+import { useMessage } from '@/hooks/useMessage';
 import type { Device, TableColumn } from '@/types';
 import './index.css';
 
@@ -50,6 +50,7 @@ const { RangePicker } = DatePicker;
  * 提供设备的增删改查、状态监控、配置管理等功能
  */
 const MerchantDevices: React.FC = () => {
+  const messageApi = useMessage();
   const [loading, setLoading] = useState(false);
   const [devices, setDevices] = useState<Device[]>([]);
   const [total, setTotal] = useState(0);
@@ -108,12 +109,16 @@ const MerchantDevices: React.FC = () => {
         limit: number;
       }>('/merchant/devices', params);
       
+      // 调试：输出接口返回数据
+      console.log('商户设备列表API响应:', response);
+      console.log('商户设备列表数据:', response.data);
+      
       if (response.success) {
-        setDevices(response.data.data);
-        setTotal(response.data.total);
+        setDevices(response.data.data || response.data || []);
+        setTotal(response.data.total || 0);
       }
     } catch (error) {
-      message.error('加载设备列表失败');
+      messageApi.error('加载设备列表失败');
     } finally {
       setLoading(false);
     }
@@ -144,7 +149,7 @@ const MerchantDevices: React.FC = () => {
         setDrawerVisible(true);
       }
     } catch (error) {
-      message.error('获取设备详情失败');
+      messageApi.error('获取设备详情失败');
     }
   };
 
@@ -153,11 +158,11 @@ const MerchantDevices: React.FC = () => {
     try {
       const response = await ApiService.delete(`/merchant/devices/${deviceId}`);
       if (response.success) {
-        message.success('设备删除成功');
+        messageApi.success('设备删除成功');
         loadDevices();
       }
     } catch (error) {
-      message.error('删除设备失败');
+      messageApi.error('删除设备失败');
     }
   };
 
@@ -170,11 +175,11 @@ const MerchantDevices: React.FC = () => {
       });
       
       if (response.success) {
-        message.success(`设备已${newStatus === 'online' ? '启用' : '禁用'}`);
+        messageApi.success(`设备已${newStatus === 'online' ? '启用' : '禁用'}`);
         loadDevices();
       }
     } catch (error) {
-      message.error('状态切换失败');
+      messageApi.error('状态切换失败');
     }
   };
 
@@ -189,12 +194,12 @@ const MerchantDevices: React.FC = () => {
       }
       
       if (response.success) {
-        message.success(`设备${modalType === 'add' ? '添加' : '更新'}成功`);
+        messageApi.success(`设备${modalType === 'add' ? '添加' : '更新'}成功`);
         setModalVisible(false);
         loadDevices();
       }
     } catch (error) {
-      message.error(`${modalType === 'add' ? '添加' : '更新'}设备失败`);
+      messageApi.error(`${modalType === 'add' ? '添加' : '更新'}设备失败`);
     }
   };
 
@@ -215,10 +220,10 @@ const MerchantDevices: React.FC = () => {
         link.download = `devices_${formatDate.date(new Date())}.xlsx`;
         link.click();
         window.URL.revokeObjectURL(url);
-        message.success('导出成功');
+        messageApi.success('导出成功');
       }
     } catch (error) {
-      message.error('导出失败');
+      messageApi.error('导出失败');
     }
   };
 

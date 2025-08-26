@@ -32,7 +32,7 @@ import { AuditLogModule } from './audit-log.module';
       DeviceLog,
     ]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'your-secret-key',
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '24h' },
     }),
     AuditLogModule,

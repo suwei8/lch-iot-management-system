@@ -1,9 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { message } from 'antd';
 import { ApiResponse, PaginatedResponse } from '@/types';
 
 // API基础配置
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 // 创建axios实例
 const apiClient: AxiosInstance = axios.create({
@@ -23,12 +22,10 @@ apiClient.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
     
-    // 添加请求时间戳，防止缓存
+    // 添加缓存控制头部，防止缓存
     if (config.method === 'get') {
-      config.params = {
-        ...config.params,
-        _t: Date.now(),
-      };
+      config.headers['Cache-Control'] = 'no-cache';
+      config.headers['Pragma'] = 'no-cache';
     }
     
     return config;
@@ -46,7 +43,7 @@ apiClient.interceptors.response.use(
     
     // 检查业务状态码
     if (data.success === false) {
-      message.error(data.message || '请求失败');
+      console.error('API业务错误:', data.message || '请求失败');
       return Promise.reject(new Error(data.message || '请求失败'));
     }
     
@@ -61,7 +58,7 @@ apiClient.interceptors.response.use(
       
       switch (status) {
         case 401:
-          message.error('登录已过期，请重新登录');
+          console.error('登录已过期，请重新登录');
           // 清除本地存储的认证信息
           localStorage.removeItem('token');
           localStorage.removeItem('auth-storage');
@@ -69,21 +66,21 @@ apiClient.interceptors.response.use(
           window.location.href = '/login';
           break;
         case 403:
-          message.error('没有权限访问该资源');
+          console.error('没有权限访问该资源');
           break;
         case 404:
-          message.error('请求的资源不存在');
+          console.error('请求的资源不存在');
           break;
         case 500:
-          message.error('服务器内部错误');
+          console.error('服务器内部错误');
           break;
         default:
-          message.error(data?.message || `请求失败 (${status})`);
+          console.error(data?.message || `请求失败 (${status})`);
       }
     } else if (error.request) {
-      message.error('网络连接失败，请检查网络设置');
+      console.error('网络连接失败，请检查网络设置');
     } else {
-      message.error('请求配置错误');
+      console.error('请求配置错误');
     }
     
     return Promise.reject(error);

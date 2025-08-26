@@ -86,18 +86,18 @@ describe('UserController', () => {
       const mockUsers = [mockUser];
       mockUserService.findAll.mockResolvedValue(mockUsers);
 
-      const result = await controller.findAll();
+      const result = await controller.findAll(1, 10);
 
-      expect(mockUserService.findAll).toHaveBeenCalled();
+      expect(mockUserService.findAll).toHaveBeenCalledWith(1, 10, undefined, undefined);
       expect(result).toEqual(mockUsers);
     });
 
      it('should handle empty user list', async () => {
        mockUserService.findAll.mockResolvedValue([]);
 
-       const result = await controller.findAll();
+       const result = await controller.findAll(1, 10);
 
-       expect(mockUserService.findAll).toHaveBeenCalled();
+       expect(mockUserService.findAll).toHaveBeenCalledWith(1, 10, undefined, undefined);
        expect(result).toEqual([]);
      });
    });

@@ -15,7 +15,6 @@ import {
   Space,
   Tooltip,
   Popconfirm,
-  message,
   Spin,
   Empty,
   Progress,
@@ -40,6 +39,7 @@ import {
   SendOutlined
 } from '@ant-design/icons';
 import { ApiService } from '../../../utils/api';
+import { useMessage } from '../../../hooks/useMessage';
 import './index.css';
 
 const { RangePicker } = DatePicker;
@@ -49,6 +49,7 @@ const { Text } = Typography;
 
 // 商户报表中心页面组件
 const MerchantReports: React.FC = () => {
+  const messageApi = useMessage();
   const [loading, setLoading] = useState(false);
   const [reports, setReports] = useState([]);
   const [templates, setTemplates] = useState([]);
@@ -78,14 +79,14 @@ const MerchantReports: React.FC = () => {
   });
 
   // 获取报表列表
-  const fetchReports = async (page = 1, pageSize = 10) => {
+  const fetchReports = async (page = 1, limit = 10) => {
     setLoading(true);
     try {
       const params: any = {
         page,
-        pageSize,
+        limit,
         status: filters.status === 'all' ? undefined : filters.status,
-        type: filters.type === 'all' ? undefined : filters.type
+        reportType: filters.type === 'all' ? undefined : filters.type
       };
       
       if (filters.dateRange && filters.dateRange.length === 2) {
@@ -97,12 +98,12 @@ const MerchantReports: React.FC = () => {
       setReports(response.data || []);
       setPagination({
         current: page,
-        pageSize,
+        pageSize: limit,
         total: response.total || 0
       });
     } catch (error) {
       console.error('获取报表列表失败:', error);
-      message.error('获取报表列表失败');
+      messageApi.error('获取报表列表失败');
     } finally {
       setLoading(false);
     }
@@ -123,7 +124,7 @@ const MerchantReports: React.FC = () => {
     try {
       const response = await ApiService.get('/merchant/devices', {
         page: 1,
-        pageSize: 1000,
+        limit: 100,
         status: 'all'
       });
       setDevices(response.data || []);
@@ -145,13 +146,13 @@ const MerchantReports: React.FC = () => {
       delete params.devices;
       
       await ApiService.post('/merchant/reports', params);
-      message.success('报表创建成功');
+      messageApi.success('报表创建成功');
       setCreateModalVisible(false);
       createForm.resetFields();
       fetchReports();
     } catch (error) {
       console.error('创建报表失败:', error);
-      message.error('创建报表失败');
+      messageApi.error('创建报表失败');
     }
   };
 
@@ -159,11 +160,11 @@ const MerchantReports: React.FC = () => {
   const handleDeleteReport = async (id: string) => {
     try {
       await ApiService.delete(`/merchant/reports/${id}`);
-      message.success('删除成功');
+      messageApi.success('删除成功');
       fetchReports();
     } catch (error) {
       console.error('删除报表失败:', error);
-      message.error('删除报表失败');
+      messageApi.error('删除报表失败');
     }
   };
 
@@ -172,10 +173,10 @@ const MerchantReports: React.FC = () => {
     try {
       const filename = `${report.name}_${new Date().toISOString().split('T')[0]}.${report.format}`;
       await ApiService.download(`/merchant/reports/${report.id}/download`, filename, {});
-      message.success('下载成功');
+      messageApi.success('下载成功');
     } catch (error) {
       console.error('下载报表失败:', error);
-      message.error('下载报表失败');
+      messageApi.error('下载报表失败');
     }
   };
 
@@ -189,7 +190,7 @@ const MerchantReports: React.FC = () => {
       setPreviewModalVisible(true);
     } catch (error) {
       console.error('预览报表失败:', error);
-      message.error('预览报表失败');
+      messageApi.error('预览报表失败');
     } finally {
       setLoading(false);
     }
@@ -199,11 +200,11 @@ const MerchantReports: React.FC = () => {
   const handleRegenerateReport = async (id: string) => {
     try {
       await ApiService.post(`/merchant/reports/${id}/regenerate`);
-      message.success('报表重新生成中...');
+      messageApi.success('报表重新生成中...');
       fetchReports();
     } catch (error) {
       console.error('重新生成报表失败:', error);
-      message.error('重新生成报表失败');
+      messageApi.error('重新生成报表失败');
     }
   };
 
@@ -211,10 +212,10 @@ const MerchantReports: React.FC = () => {
   const handleSendReport = async (report: any) => {
     try {
       await ApiService.post(`/merchant/reports/${report.id}/send`);
-      message.success('报表发送成功');
+      messageApi.success('报表发送成功');
     } catch (error) {
       console.error('发送报表失败:', error);
-      message.error('发送报表失败');
+      messageApi.error('发送报表失败');
     }
   };
 

@@ -21,6 +21,7 @@ import {
   LogoutOutlined,
   ProfileOutlined,
   ShopOutlined,
+  FileTextOutlined,
 } from '@ant-design/icons';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore, useAppStore } from '@/store';
@@ -48,6 +49,11 @@ const MerchantLayout: React.FC = () => {
       key: '/merchant',
       icon: <DashboardOutlined />,
       label: '仪表板',
+    },
+    {
+      key: '/merchant/orders',
+      icon: <FileTextOutlined />,
+      label: '订单管理',
     },
     {
       key: '/merchant/devices',
@@ -226,7 +232,7 @@ const MerchantLayout: React.FC = () => {
                     icon={<ShopOutlined />}
                     className="user-avatar"
                   />
-                  <span className="user-name">{user?.username || '商户'}</span>
+                  <span className="user-name">{user?.nickname || '商户'}</span>
                 </div>
               </Dropdown>
             </Space>

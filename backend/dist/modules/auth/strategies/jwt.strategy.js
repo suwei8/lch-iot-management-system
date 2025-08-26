@@ -19,12 +19,12 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         super({
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
-            secretOrKey: process.env.JWT_SECRET || 'sw63828!',
+            secretOrKey: process.env.JWT_SECRET,
         });
         this.userService = userService;
     }
     async validate(payload) {
-        const { userId } = payload;
+        const { sub: userId } = payload;
         const user = await this.userService.findById(userId);
         if (!user) {
             throw new common_1.UnauthorizedException('用户不存在');

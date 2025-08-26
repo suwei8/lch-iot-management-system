@@ -101,16 +101,16 @@ describe('DeviceController', () => {
       const devices = [mockDevice];
       mockDeviceService.findAll.mockResolvedValue(devices);
 
-      const result = await controller.findAll();
+      const result = await controller.findAll(1, 10);
 
-      expect(mockDeviceService.findAll).toHaveBeenCalled();
+      expect(mockDeviceService.findAll).toHaveBeenCalledWith(1, 10, undefined, undefined);
       expect(result).toEqual(devices);
     });
 
     it('should return empty array when no devices exist', async () => {
       mockDeviceService.findAll.mockResolvedValue([]);
 
-      const result = await controller.findAll();
+      const result = await controller.findAll(1, 10);
 
       expect(result).toEqual([]);
     });

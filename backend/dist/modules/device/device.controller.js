@@ -29,7 +29,7 @@ let DeviceController = class DeviceController {
     async create(createDeviceDto) {
         return await this.deviceService.create(createDeviceDto);
     }
-    async findAll(page = 1, limit = 10, merchantId, status) {
+    async findAll(page, limit, merchantId, status) {
         return await this.deviceService.findAll(page, limit, merchantId, status);
     }
     async findOne(id) {
@@ -42,7 +42,7 @@ let DeviceController = class DeviceController {
         await this.deviceService.remove(id);
         return { message: '设备删除成功' };
     }
-    async getDeviceLogs(id, page = 1, limit = 10, eventType) {
+    async getDeviceLogs(id, page, limit, eventType) {
         return await this.deviceService.getDeviceLogs(id, page, limit, eventType);
     }
     async handleCallback(deviceCallbackDto) {
@@ -115,8 +115,8 @@ __decorate([
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    __param(0, (0, common_1.Query)('page', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Query)('limit', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Query)('page', new common_1.DefaultValuePipe(1), common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Query)('limit', new common_1.DefaultValuePipe(10), common_1.ParseIntPipe)),
     __param(2, (0, common_1.Query)('merchantId')),
     __param(3, (0, common_1.Query)('status')),
     __metadata("design:type", Function),
@@ -154,8 +154,8 @@ __decorate([
     (0, common_1.Get)(':id/logs'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Query)('page', common_1.ParseIntPipe)),
-    __param(2, (0, common_1.Query)('limit', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Query)('page', new common_1.DefaultValuePipe(1), common_1.ParseIntPipe)),
+    __param(2, (0, common_1.Query)('limit', new common_1.DefaultValuePipe(10), common_1.ParseIntPipe)),
     __param(3, (0, common_1.Query)('eventType')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Number, Number, String]),

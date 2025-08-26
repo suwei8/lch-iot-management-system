@@ -14,7 +14,7 @@ const common_1 = require("@nestjs/common");
 const ioredis_1 = require("ioredis");
 let RedisService = class RedisService {
     constructor() {
-        this.client = new ioredis_1.default(process.env.REDIS_URL || 'redis://host.docker.internal:6379/0', {
+        this.client = new ioredis_1.default(process.env.REDIS_URL, {
             enableReadyCheck: false,
             maxRetriesPerRequest: null,
         });
@@ -59,7 +59,7 @@ exports.RedisService = RedisService = __decorate([
     __metadata("design:paramtypes", [])
 ], RedisService);
 const redisConfig = () => ({
-    url: process.env.REDIS_URL || 'redis://host.docker.internal:6379/0',
+    url: process.env.REDIS_URL,
 });
 exports.redisConfig = redisConfig;
 //# sourceMappingURL=redis.config.js.map

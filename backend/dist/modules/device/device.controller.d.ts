@@ -6,7 +6,7 @@ export declare class DeviceController {
     private readonly deviceService;
     constructor(deviceService: DeviceService);
     create(createDeviceDto: CreateDeviceDto): Promise<import("./entities/device.entity").Device>;
-    findAll(page?: number, limit?: number, merchantId?: number, status?: string): Promise<{
+    findAll(page: number, limit: number, merchantId?: number, status?: string): Promise<{
         devices: import("./entities/device.entity").Device[];
         total: number;
         page: number;
@@ -18,7 +18,7 @@ export declare class DeviceController {
     remove(id: number): Promise<{
         message: string;
     }>;
-    getDeviceLogs(id: number, page?: number, limit?: number, eventType?: string): Promise<{
+    getDeviceLogs(id: number, page: number, limit: number, eventType?: string): Promise<{
         logs: import("./entities/device-log.entity").DeviceLog[];
         total: number;
         page: number;

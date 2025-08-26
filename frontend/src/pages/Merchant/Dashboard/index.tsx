@@ -44,7 +44,10 @@ const MerchantDashboard: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
   const [recentData, setRecentData] = useState<DataRecord[]>([]);
   const [alerts, setAlerts] = useState<any[]>([]);
-  const [chartData, setChartData] = useState({
+  const [chartData, setChartData] = useState<{
+    deviceTrend: Array<{ status: string; count: number }>;
+    dataTrend: Array<{ date: string; count: number }>;
+  }>({
     deviceTrend: [],
     dataTrend: [],
   });
@@ -55,19 +58,69 @@ const MerchantDashboard: React.FC = () => {
     setLoading(true);
     try {
       // 并行加载商户相关数据
-      const [statsRes, devicesRes, dataRes, alertsRes, chartRes] = await Promise.all([
-        ApiService.get<DashboardStats>('/merchant/dashboard/stats'),
-        ApiService.get<Device[]>('/merchant/devices?limit=10'),
-        ApiService.get<DataRecord[]>('/merchant/data?limit=10&sort=timestamp:desc'),
-        ApiService.get('/merchant/alerts?status=active&limit=5'),
-        ApiService.get('/merchant/dashboard/charts'),
+      const [statsRes, devicesRes] = await Promise.all([
+        ApiService.get<DashboardStats>('/api/v1/merchant/dashboard'),
+        ApiService.get<Device[]>('/api/v1/devices?limit=10'),
       ]);
+      
+      // 模拟图表数据和告警数据，因为后端暂时没有对应接口
+      const mockChartData = {
+        dataTrend: [
+          { date: '2024-01-01', count: 85 },
+          { date: '2024-01-02', count: 92 },
+          { date: '2024-01-03', count: 78 },
+          { date: '2024-01-04', count: 105 },
+          { date: '2024-01-05', count: 118 },
+          { date: '2024-01-06', count: 125 },
+          { date: '2024-01-07', count: 132 },
+        ],
+        deviceTrend: [
+          { status: 'active', count: 8 },
+          { status: 'inactive', count: 2 },
+          { status: 'maintenance', count: 1 },
+        ],
+      };
+      
+      const mockAlerts = [
+        {
+          id: 1,
+          deviceId: 'DEV001',
+          message: '设备温度过高',
+          level: 'warning',
+          timestamp: new Date().toISOString(),
+        },
+      ];
+      
+      const mockDataRecords: DataRecord[] = [
+        {
+          id: 1,
+          deviceId: 1,
+          deviceName: '温度传感器001',
+          dataType: '温度',
+          value: '25.6',
+          unit: '°C',
+          timestamp: new Date().toISOString(),
+          createdAt: new Date().toISOString(),
+        },
+        {
+          id: 2,
+          deviceId: 2,
+          deviceName: '湿度传感器002',
+          dataType: '湿度',
+          value: '68.2',
+          unit: '%',
+          timestamp: new Date(Date.now() - 300000).toISOString(),
+          createdAt: new Date(Date.now() - 300000).toISOString(),
+        },
+      ];
 
       if (statsRes.success) setStats(statsRes.data);
       if (devicesRes.success) setDevices(devicesRes.data);
-      if (dataRes.success) setRecentData(dataRes.data);
-      if (alertsRes.success) setAlerts(alertsRes.data);
-      if (chartRes.success) setChartData(chartRes.data);
+      
+      // 使用模拟数据
+      setRecentData(mockDataRecords);
+      setAlerts(mockAlerts);
+      setChartData(mockChartData);
     } catch (error) {
       console.error('加载仪表板数据失败:', error);
     } finally {
@@ -138,7 +191,6 @@ const MerchantDashboard: React.FC = () => {
     color: '#52c41a',
     point: {
       size: 3,
-      shape: 'circle',
     },
     tooltip: {
       formatter: (datum: any) => {
@@ -167,7 +219,7 @@ const MerchantDashboard: React.FC = () => {
   if (loading) {
     return (
       <div className="dashboard-loading">
-        <Spin size="large" tip="加载仪表板数据..." />
+        <Spin size="large" />
       </div>
     );
   }
@@ -176,7 +228,7 @@ const MerchantDashboard: React.FC = () => {
     <div className="merchant-dashboard">
       {/* 欢迎信息 */}
       <div className="welcome-section">
-        <h2>欢迎回来，{user?.username}！</h2>
+        <h2>欢迎回来，{user?.nickname}！</h2>
         <p>这里是您的设备管理中心，实时监控您的IoT设备状态和数据。</p>
       </div>
 
@@ -215,12 +267,12 @@ const MerchantDashboard: React.FC = () => {
           <Card>
             <Statistic
               title="在线设备"
-              value={stats?.activeDevices || 0}
-              prefix={<CheckCircleOutlined />}
-              valueStyle={{ color: '#1890ff' }}
+              value={stats?.onlineDevices || 0}
+              prefix={<LineChartOutlined />}
+              valueStyle={{ color: '#faad14' }}
               suffix={
                 <span className="device-rate">
-                  ({((stats?.activeDevices || 0) / (stats?.totalDevices || 1) * 100).toFixed(1)}%)
+                  ({((stats?.onlineDevices || 0) / (stats?.totalDevices || 1) * 100).toFixed(1)}%)
                 </span>
               }
             />

@@ -107,14 +107,12 @@ export class AuthService {
    */
   private generateToken(user: any) {
     const payload = {
-      userId: user.id,
+      sub: user.id,
       phone: user.phone,
       role: user.role,
     };
 
-    return this.jwtService.sign(payload, {
-      expiresIn: process.env.JWT_EXPIRES_IN || '7d',
-    });
+    return this.jwtService.sign(payload);
   }
 
   /**
@@ -124,7 +122,7 @@ export class AuthService {
   async validateToken(token: string) {
     try {
       const payload = this.jwtService.verify(token);
-      const user = await this.userService.findById(payload.userId);
+      const user = await this.userService.findById(payload.sub);
       
       if (!user || user.status !== 'active') {
         throw new UnauthorizedException('无效的token');

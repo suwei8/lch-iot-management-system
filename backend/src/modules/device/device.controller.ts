@@ -9,6 +9,7 @@ import {
   Query,
   UseGuards,
   ParseIntPipe,
+  DefaultValuePipe,
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
@@ -111,8 +112,8 @@ export class DeviceController {
   @Get()
   @UseGuards(JwtAuthGuard)
   async findAll(
-    @Query('page', ParseIntPipe) page: number = 1,
-    @Query('limit', ParseIntPipe) limit: number = 10,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
     @Query('merchantId') merchantId?: number,
     @Query('status') status?: string,
   ) {
@@ -167,8 +168,8 @@ export class DeviceController {
   @UseGuards(JwtAuthGuard)
   async getDeviceLogs(
     @Param('id', ParseIntPipe) id: number,
-    @Query('page', ParseIntPipe) page: number = 1,
-    @Query('limit', ParseIntPipe) limit: number = 10,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
     @Query('eventType') eventType?: string,
   ) {
     return await this.deviceService.getDeviceLogs(id, page, limit, eventType);

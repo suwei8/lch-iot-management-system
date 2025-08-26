@@ -28,7 +28,7 @@ export declare class UserController {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    findAll(page?: number, limit?: number, role?: UserRole, status?: string): Promise<{
+    findAll(page: number, limit: number, role?: UserRole, status?: string): Promise<{
         users: {
             id: number;
             phone: string;

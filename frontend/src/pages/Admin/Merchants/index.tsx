@@ -36,7 +36,7 @@ import {
   MailOutlined,
   EnvironmentOutlined,
 } from '@ant-design/icons';
-import { ApiService } from '@/utils/api';
+import { merchantService } from '@/services/merchantService';
 import { formatDate } from '@/utils/helpers';
 import type { Merchant, TableColumn } from '@/types';
 import './index.css';
@@ -100,16 +100,19 @@ const AdminMerchants: React.FC = () => {
         type: typeFilter,
       };
       
-      const response = await ApiService.get<{
-        data: Merchant[];
-        total: number;
-        page: number;
-        limit: number;
-      }>('/admin/merchants', params);
+      const response = await merchantService.getMerchants(params);
+      
+      // 调试：输出接口返回数据
+      console.log('商户列表API响应:', response);
+      console.log('商户列表数据:', response.data);
       
       if (response.success) {
-        setMerchants(response.data.data);
-        setTotal(response.data.total);
+        // 后端返回的数据结构是 { data: { items: [...], total: number } }
+        const merchantData = response.data.data || [];
+        setMerchants(merchantData);
+        setTotal(response.data.total || 0);
+      } else {
+        message.error(response.message);
       }
     } catch (error) {
       message.error('加载商户列表失败');
@@ -137,10 +140,12 @@ const AdminMerchants: React.FC = () => {
   // 查看商户详情
   const handleView = async (merchant: Merchant) => {
     try {
-      const response = await ApiService.get<Merchant>(`/admin/merchants/${merchant.id}`);
-      if (response.success) {
+      const response = await merchantService.getMerchantById(merchant.id);
+      if (response.success && response.data) {
         setSelectedMerchant(response.data);
         setDrawerVisible(true);
+      } else {
+        message.error(response.message);
       }
     } catch (error) {
       message.error('获取商户详情失败');
@@ -148,12 +153,14 @@ const AdminMerchants: React.FC = () => {
   };
 
   // 删除商户
-  const handleDelete = async (merchantId: string) => {
+  const handleDelete = async (merchantId: number) => {
     try {
-      const response = await ApiService.delete(`/admin/merchants/${merchantId}`);
+      const response = await merchantService.deleteMerchant(merchantId);
       if (response.success) {
         message.success('商户删除成功');
         loadMerchants();
+      } else {
+        message.error(response.message);
       }
     } catch (error) {
       message.error('删除商户失败');
@@ -164,13 +171,13 @@ const AdminMerchants: React.FC = () => {
   const handleStatusToggle = async (merchant: Merchant) => {
     try {
       const newStatus = merchant.status === 'active' ? 'inactive' : 'active';
-      const response = await ApiService.patch(`/admin/merchants/${merchant.id}/status`, {
-        status: newStatus,
-      });
+      const response = await merchantService.updateMerchantStatus(merchant.id, newStatus);
       
       if (response.success) {
         message.success(`商户已${newStatus === 'active' ? '启用' : '禁用'}`);
         loadMerchants();
+      } else {
+        message.error(response.message);
       }
     } catch (error) {
       message.error('状态切换失败');
@@ -182,15 +189,17 @@ const AdminMerchants: React.FC = () => {
     try {
       let response;
       if (modalType === 'add') {
-        response = await ApiService.post('/admin/merchants', values);
+        response = await merchantService.createMerchant(values);
       } else {
-        response = await ApiService.put(`/admin/merchants/${editingMerchant?.id}`, values);
+        response = await merchantService.updateMerchant(editingMerchant!.id, values);
       }
       
       if (response.success) {
         message.success(`商户${modalType === 'add' ? '添加' : '更新'}成功`);
         setModalVisible(false);
         loadMerchants();
+      } else {
+        message.error(response.message);
       }
     } catch (error) {
       message.error(`${modalType === 'add' ? '添加' : '更新'}商户失败`);
@@ -200,21 +209,20 @@ const AdminMerchants: React.FC = () => {
   // 导出商户列表
   const handleExport = async () => {
     try {
-      const response = await ApiService.get('/admin/merchants/export', {
-        search: searchText,
+      const response = await merchantService.exportMerchants({
         status: statusFilter,
         type: typeFilter,
       });
       
-      if (response.success) {
-        // 创建下载链接
-        const url = window.URL.createObjectURL(new Blob([response.data]));
+      if (response.success && response.data) {
+        // 直接使用下载链接
         const link = document.createElement('a');
-        link.href = url;
+        link.href = response.data.downloadUrl;
         link.download = `merchants_${formatDate.date(new Date(), 'YYYY-MM-DD')}.xlsx`;
         link.click();
-        window.URL.revokeObjectURL(url);
         message.success('导出成功');
+      } else {
+        message.error(response.message);
       }
     } catch (error) {
       message.error('导出失败');
@@ -347,7 +355,7 @@ const AdminMerchants: React.FC = () => {
             <Popconfirm
               title="确定要删除这个商户吗？"
               description="删除后将无法恢复，且会影响相关设备数据"
-              onConfirm={() => handleDelete(record.id.toString())}
+              onConfirm={() => handleDelete(record.id)}
               okText="确定"
               cancelText="取消"
             >

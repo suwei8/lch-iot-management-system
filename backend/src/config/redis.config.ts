@@ -9,7 +9,7 @@ export class RedisService {
   private client: Redis;
 
   constructor() {
-    this.client = new Redis(process.env.REDIS_URL || 'redis://host.docker.internal:6379/0', {
+    this.client = new Redis(process.env.REDIS_URL, {
       enableReadyCheck: false,
       maxRetriesPerRequest: null,
     });
@@ -88,5 +88,5 @@ export class RedisService {
  * Redis配置
  */
 export const redisConfig = () => ({
-  url: process.env.REDIS_URL || 'redis://host.docker.internal:6379/0',
+  url: process.env.REDIS_URL,
 });

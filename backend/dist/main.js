@@ -7,6 +7,8 @@ const app_module_1 = require("./app.module");
 const global_exception_filter_1 = require("./common/filters/global-exception.filter");
 const nest_winston_1 = require("nest-winston");
 const logger_config_1 = require("./common/logger/logger.config");
+const typeorm_1 = require("typeorm");
+const seed_1 = require("./seeds/seed");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
         logger: nest_winston_1.WinstonModule.createLogger((0, logger_config_1.createLogger)()),
@@ -89,6 +91,16 @@ async function bootstrap() {
     console.log('🚀 亮车惠后端服务已启动，端口: 8000');
     console.log(`📚 Swagger文档地址: http://localhost:8000/api-docs`);
     console.log(`📄 API规范JSON: http://localhost:8000/api-docs-json`);
+    if (process.env.NODE_ENV !== 'production') {
+        try {
+            const dataSource = app.get(typeorm_1.DataSource);
+            await (0, seed_1.runSeeds)(dataSource);
+            console.log('✅ 种子数据初始化完成');
+        }
+        catch (error) {
+            console.warn('⚠️ 种子数据初始化失败:', error.message);
+        }
+    }
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

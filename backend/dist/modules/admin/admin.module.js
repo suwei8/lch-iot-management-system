@@ -41,7 +41,7 @@ exports.AdminModule = AdminModule = __decorate([
                 device_log_entity_1.DeviceLog,
             ]),
             jwt_1.JwtModule.register({
-                secret: process.env.JWT_SECRET || 'your-secret-key',
+                secret: process.env.JWT_SECRET,
                 signOptions: { expiresIn: '24h' },
             }),
             audit_log_module_1.AuditLogModule,

@@ -26,7 +26,7 @@ exports.OrderModule = OrderModule = __decorate([
             user_module_1.UserModule,
             device_module_1.DeviceModule,
             jwt_1.JwtModule.register({
-                secret: process.env.JWT_SECRET || 'your-secret-key',
+                secret: process.env.JWT_SECRET,
                 signOptions: { expiresIn: '24h' },
             }),
         ],

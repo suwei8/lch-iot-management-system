@@ -16,9 +16,9 @@ import { PermissionsGuard } from './guards/permissions.guard';
     UserModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'sw63828!',
+      secret: 'sw63828!',
       signOptions: {
-        expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+        expiresIn: '7d',
       },
     }),
   ],

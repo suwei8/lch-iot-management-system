@@ -1,0 +1,980 @@
+{
+  "config": {
+    "configFile": "D:\\iot_root\\lch\\frontend\\playwright.config.ts",
+    "rootDir": "D:/iot_root/lch/frontend/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 3
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "D:/iot_root/lch/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 3
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/iot_root/lch/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "D:/iot_root/lch/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 3
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "D:/iot_root/lch/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "D:/iot_root/lch/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 3
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "D:/iot_root/lch/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 6,
+    "webServer": {
+      "command": "npm start",
+      "port": 3000,
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "admin-login.spec.ts",
+      "file": "admin-login.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "管理员登录测试",
+          "file": "admin-login.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "管理员账号登录成功并显示后台页面",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 19586,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:24:16",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 16,
+                          "line": 24
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 22 |\u001b[39m     \n \u001b[90m 23 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 25 |\u001b[39m     \n \u001b[90m 26 |\u001b[39m     \u001b[90m// 等待手机号输入框可见并可交互\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] input[placeholder=\"请输入手机号\"]'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 16,
+                            "line": 24
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 22 |\u001b[39m     \n \u001b[90m 23 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 25 |\u001b[39m     \n \u001b[90m 26 |\u001b[39m     \u001b[90m// 等待手机号输入框可见并可交互\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] input[placeholder=\"请输入手机号\"]'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:24:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:41:35.710Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员账号登录成功并显示后台页面-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员账号登录成功并显示后台页面-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员账号登录成功并显示后台页面-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 16,
+                        "line": 24
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-f4c4afdb2b47a139abe9",
+              "file": "admin-login.spec.ts",
+              "line": 14,
+              "column": 7
+            },
+            {
+              "title": "使用演示账户快速登录管理员",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 18880,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:74:16",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 16,
+                          "line": 74
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 72 |\u001b[39m     \n \u001b[90m 73 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 74 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 75 |\u001b[39m     \n \u001b[90m 76 |\u001b[39m     \u001b[90m// 等待演示账号登录按钮出现并点击\u001b[39m\n \u001b[90m 77 |\u001b[39m     \u001b[36mconst\u001b[39m demoButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] .demo-login button:has-text(\"使用演示账号登录\")'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 16,
+                            "line": 74
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 72 |\u001b[39m     \n \u001b[90m 73 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 74 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 75 |\u001b[39m     \n \u001b[90m 76 |\u001b[39m     \u001b[90m// 等待演示账号登录按钮出现并点击\u001b[39m\n \u001b[90m 77 |\u001b[39m     \u001b[36mconst\u001b[39m demoButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] .demo-login button:has-text(\"使用演示账号登录\")'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:74:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:41:56.594Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-使用演示账户快速登录管理员-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-使用演示账户快速登录管理员-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-使用演示账户快速登录管理员-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 16,
+                        "line": 74
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-e3cccb2f546f8ce159d1",
+              "file": "admin-login.spec.ts",
+              "line": 64,
+              "column": 7
+            },
+            {
+              "title": "管理员登录后可以访问各个功能模块",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 18735,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:96:16",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 16,
+                          "line": 96
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 94 |\u001b[39m     \n \u001b[90m 95 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 96 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 97 |\u001b[39m     \n \u001b[90m 98 |\u001b[39m     \u001b[90m// 等待演示账号登录按钮出现并点击\u001b[39m\n \u001b[90m 99 |\u001b[39m     \u001b[36mconst\u001b[39m demoButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] .demo-login button:has-text(\"使用演示账号登录\")'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 16,
+                            "line": 96
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 94 |\u001b[39m     \n \u001b[90m 95 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 96 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 97 |\u001b[39m     \n \u001b[90m 98 |\u001b[39m     \u001b[90m// 等待演示账号登录按钮出现并点击\u001b[39m\n \u001b[90m 99 |\u001b[39m     \u001b[36mconst\u001b[39m demoButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] .demo-login button:has-text(\"使用演示账号登录\")'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:96:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:42:16.307Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录后可以访问各个功能模块-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录后可以访问各个功能模块-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录后可以访问各个功能模块-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 16,
+                        "line": 96
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-e0e6007b9c4e0772f953",
+              "file": "admin-login.spec.ts",
+              "line": 89,
+              "column": 7
+            },
+            {
+              "title": "管理员登录失败处理",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 18728,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:137:16",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 16,
+                          "line": 137
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 135 |\u001b[39m     \n \u001b[90m 136 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 137 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 138 |\u001b[39m     \n \u001b[90m 139 |\u001b[39m     \u001b[90m// 等待手机号输入框可见并输入错误的手机号\u001b[39m\n \u001b[90m 140 |\u001b[39m     \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] input[placeholder=\"请输入手机号\"]'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 16,
+                            "line": 137
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 135 |\u001b[39m     \n \u001b[90m 136 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 137 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 138 |\u001b[39m     \n \u001b[90m 139 |\u001b[39m     \u001b[90m// 等待手机号输入框可见并输入错误的手机号\u001b[39m\n \u001b[90m 140 |\u001b[39m     \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] input[placeholder=\"请输入手机号\"]'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:137:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:42:35.847Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录失败处理-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录失败处理-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录失败处理-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 16,
+                        "line": 137
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-a76cfed8ba9a0ab5480c",
+              "file": "admin-login.spec.ts",
+              "line": 130,
+              "column": 7
+            },
+            {
+              "title": "管理员账号登录成功并显示后台页面",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "timedOut",
+                      "duration": 30049,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded while running \"beforeEach\" hook.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded while running \"beforeEach\" hook.\u001b[39m\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:8:8",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 8,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \u001b[90m */\u001b[39m\n \u001b[90m  7 |\u001b[39m test\u001b[33m.\u001b[39mdescribe(\u001b[32m'管理员登录测试'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m   test\u001b[33m.\u001b[39mbeforeEach(\u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m    |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  9 |\u001b[39m     \u001b[90m// 访问登录页面\u001b[39m\n \u001b[90m 10 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 11 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 8,
+                            "line": 8
+                          },
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded while running \"beforeEach\" hook.\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \u001b[90m */\u001b[39m\n \u001b[90m  7 |\u001b[39m test\u001b[33m.\u001b[39mdescribe(\u001b[32m'管理员登录测试'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m   test\u001b[33m.\u001b[39mbeforeEach(\u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m    |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  9 |\u001b[39m     \u001b[90m// 访问登录页面\u001b[39m\n \u001b[90m 10 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 11 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:8:8\u001b[22m"
+                        },
+                        {
+                          "message": "Error: browserContext.newPage: Test timeout of 30000ms exceeded."
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:41:35.713Z",
+                      "annotations": [],
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 8,
+                        "line": 8
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-c29faa9e35444df2f5b9",
+              "file": "admin-login.spec.ts",
+              "line": 14,
+              "column": 7
+            },
+            {
+              "title": "使用演示账户快速登录管理员",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 1,
+                      "status": "timedOut",
+                      "duration": 30038,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded while running \"beforeEach\" hook.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded while running \"beforeEach\" hook.\u001b[39m\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:8:8",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 8,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \u001b[90m */\u001b[39m\n \u001b[90m  7 |\u001b[39m test\u001b[33m.\u001b[39mdescribe(\u001b[32m'管理员登录测试'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m   test\u001b[33m.\u001b[39mbeforeEach(\u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m    |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  9 |\u001b[39m     \u001b[90m// 访问登录页面\u001b[39m\n \u001b[90m 10 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 11 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 8,
+                            "line": 8
+                          },
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded while running \"beforeEach\" hook.\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \u001b[90m */\u001b[39m\n \u001b[90m  7 |\u001b[39m test\u001b[33m.\u001b[39mdescribe(\u001b[32m'管理员登录测试'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m   test\u001b[33m.\u001b[39mbeforeEach(\u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m    |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  9 |\u001b[39m     \u001b[90m// 访问登录页面\u001b[39m\n \u001b[90m 10 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 11 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:8:8\u001b[22m"
+                        },
+                        {
+                          "message": "Error: browserContext.newPage: Test timeout of 30000ms exceeded."
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:42:07.422Z",
+                      "annotations": [],
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 8,
+                        "line": 8
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-961956b7e99bfc9371b2",
+              "file": "admin-login.spec.ts",
+              "line": 64,
+              "column": 7
+            },
+            {
+              "title": "管理员登录后可以访问各个功能模块",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 1,
+                      "status": "timedOut",
+                      "duration": 30231,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 16,
+                            "line": 96
+                          },
+                          "message": "Error: page.waitForSelector: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 94 |\u001b[39m     \n \u001b[90m 95 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 96 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 97 |\u001b[39m     \n \u001b[90m 98 |\u001b[39m     \u001b[90m// 等待演示账号登录按钮出现并点击\u001b[39m\n \u001b[90m 99 |\u001b[39m     \u001b[36mconst\u001b[39m demoButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] .demo-login button:has-text(\"使用演示账号登录\")'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:96:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:42:38.784Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录后可以访问各个功能模块-firefox\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录后可以访问各个功能模块-firefox\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录后可以访问各个功能模块-firefox\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-b318053c9261cfde05f6",
+              "file": "admin-login.spec.ts",
+              "line": 89,
+              "column": 7
+            },
+            {
+              "title": "管理员登录失败处理",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 23585,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:137:16",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 16,
+                          "line": 137
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 135 |\u001b[39m     \n \u001b[90m 136 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 137 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 138 |\u001b[39m     \n \u001b[90m 139 |\u001b[39m     \u001b[90m// 等待手机号输入框可见并输入错误的手机号\u001b[39m\n \u001b[90m 140 |\u001b[39m     \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] input[placeholder=\"请输入手机号\"]'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 16,
+                            "line": 137
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 135 |\u001b[39m     \n \u001b[90m 136 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 137 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 138 |\u001b[39m     \n \u001b[90m 139 |\u001b[39m     \u001b[90m// 等待手机号输入框可见并输入错误的手机号\u001b[39m\n \u001b[90m 140 |\u001b[39m     \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] input[placeholder=\"请输入手机号\"]'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:137:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:43:10.344Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录失败处理-firefox\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录失败处理-firefox\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录失败处理-firefox\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 16,
+                        "line": 137
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-4c09442779437cbf54bd",
+              "file": "admin-login.spec.ts",
+              "line": 130,
+              "column": 7
+            },
+            {
+              "title": "管理员账号登录成功并显示后台页面",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "failed",
+                      "duration": 18586,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:24:16",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 16,
+                          "line": 24
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 22 |\u001b[39m     \n \u001b[90m 23 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 25 |\u001b[39m     \n \u001b[90m 26 |\u001b[39m     \u001b[90m// 等待手机号输入框可见并可交互\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] input[placeholder=\"请输入手机号\"]'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 16,
+                            "line": 24
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 22 |\u001b[39m     \n \u001b[90m 23 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 25 |\u001b[39m     \n \u001b[90m 26 |\u001b[39m     \u001b[90m// 等待手机号输入框可见并可交互\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] input[placeholder=\"请输入手机号\"]'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:24:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:41:35.712Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员账号登录成功并显示后台页面-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员账号登录成功并显示后台页面-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员账号登录成功并显示后台页面-webkit\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 16,
+                        "line": 24
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-647b953f94e974a30b7b",
+              "file": "admin-login.spec.ts",
+              "line": 14,
+              "column": 7
+            },
+            {
+              "title": "使用演示账户快速登录管理员",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 2,
+                      "status": "failed",
+                      "duration": 18014,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:74:16",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 16,
+                          "line": 74
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 72 |\u001b[39m     \n \u001b[90m 73 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 74 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 75 |\u001b[39m     \n \u001b[90m 76 |\u001b[39m     \u001b[90m// 等待演示账号登录按钮出现并点击\u001b[39m\n \u001b[90m 77 |\u001b[39m     \u001b[36mconst\u001b[39m demoButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] .demo-login button:has-text(\"使用演示账号登录\")'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 16,
+                            "line": 74
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 72 |\u001b[39m     \n \u001b[90m 73 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 74 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 75 |\u001b[39m     \n \u001b[90m 76 |\u001b[39m     \u001b[90m// 等待演示账号登录按钮出现并点击\u001b[39m\n \u001b[90m 77 |\u001b[39m     \u001b[36mconst\u001b[39m demoButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] .demo-login button:has-text(\"使用演示账号登录\")'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:74:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:41:54.914Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-使用演示账户快速登录管理员-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-使用演示账户快速登录管理员-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-使用演示账户快速登录管理员-webkit\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 16,
+                        "line": 74
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-0a063639d2541bd57bca",
+              "file": "admin-login.spec.ts",
+              "line": 64,
+              "column": 7
+            },
+            {
+              "title": "管理员登录后可以访问各个功能模块",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 2,
+                      "status": "failed",
+                      "duration": 17619,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:96:16",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 16,
+                          "line": 96
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 94 |\u001b[39m     \n \u001b[90m 95 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 96 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 97 |\u001b[39m     \n \u001b[90m 98 |\u001b[39m     \u001b[90m// 等待演示账号登录按钮出现并点击\u001b[39m\n \u001b[90m 99 |\u001b[39m     \u001b[36mconst\u001b[39m demoButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] .demo-login button:has-text(\"使用演示账号登录\")'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 16,
+                            "line": 96
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 94 |\u001b[39m     \n \u001b[90m 95 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 96 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 97 |\u001b[39m     \n \u001b[90m 98 |\u001b[39m     \u001b[90m// 等待演示账号登录按钮出现并点击\u001b[39m\n \u001b[90m 99 |\u001b[39m     \u001b[36mconst\u001b[39m demoButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] .demo-login button:has-text(\"使用演示账号登录\")'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:96:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:42:13.485Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录后可以访问各个功能模块-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录后可以访问各个功能模块-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录后可以访问各个功能模块-webkit\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 16,
+                        "line": 96
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-508aa88c9ea7d05001ae",
+              "file": "admin-login.spec.ts",
+              "line": 89,
+              "column": 7
+            },
+            {
+              "title": "管理员登录失败处理",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 2,
+                      "status": "failed",
+                      "duration": 17494,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:137:16",
+                        "location": {
+                          "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                          "column": 16,
+                          "line": 137
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 135 |\u001b[39m     \n \u001b[90m 136 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 137 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 138 |\u001b[39m     \n \u001b[90m 139 |\u001b[39m     \u001b[90m// 等待手机号输入框可见并输入错误的手机号\u001b[39m\n \u001b[90m 140 |\u001b[39m     \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] input[placeholder=\"请输入手机号\"]'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                            "column": 16,
+                            "line": 137
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[name=\"admin-login\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 135 |\u001b[39m     \n \u001b[90m 136 |\u001b[39m     \u001b[90m// 等待管理员登录表单出现\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 137 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'form[name=\"admin-login\"]'\u001b[39m\u001b[33m,\u001b[39m { state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 138 |\u001b[39m     \n \u001b[90m 139 |\u001b[39m     \u001b[90m// 等待手机号输入框可见并输入错误的手机号\u001b[39m\n \u001b[90m 140 |\u001b[39m     \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'form[name=\"admin-login\"] input[placeholder=\"请输入手机号\"]'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts:137:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-26T13:42:31.684Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录失败处理-webkit\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录失败处理-webkit\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\iot_root\\lch\\frontend\\test-results\\admin-login-管理员登录测试-管理员登录失败处理-webkit\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\iot_root\\lch\\frontend\\tests\\e2e\\admin-login.spec.ts",
+                        "column": 16,
+                        "line": 137
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "481c7578028bb96ee688-e639d466b53d15bae7db",
+              "file": "admin-login.spec.ts",
+              "line": 130,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-08-26T13:41:35.195Z",
+    "duration": 119482.89899999999,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 12,
+    "flaky": 0
+  }
+}

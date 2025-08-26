@@ -100,7 +100,7 @@ const MerchantAnalytics: React.FC = () => {
     try {
       const response = await ApiService.get('/merchant/devices', {
         page: 1,
-        pageSize: 1000,
+        limit: 100,
         status: 'all'
       });
       setDevices(response.data || []);
@@ -114,7 +114,7 @@ const MerchantAnalytics: React.FC = () => {
     try {
       const response = await ApiService.get('/merchant/alerts', {
         page: 1,
-        pageSize: 5,
+        limit: 5,
         status: 'active'
       });
       setAlerts(response.data || []);

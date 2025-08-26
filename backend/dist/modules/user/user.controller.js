@@ -54,7 +54,7 @@ let UserController = class UserController {
             updatedAt: updatedUser.updatedAt,
         };
     }
-    async findAll(page = 1, limit = 10, role, status) {
+    async findAll(page, limit, role, status) {
         return await this.userService.findAll(page, limit, role, status);
     }
     async findOne(id) {
@@ -143,8 +143,8 @@ __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)(roles_decorator_1.UserRole.PLATFORM_ADMIN),
-    __param(0, (0, common_1.Query)('page', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Query)('limit', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Query)('page', new common_1.DefaultValuePipe(1), common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Query)('limit', new common_1.DefaultValuePipe(10), common_1.ParseIntPipe)),
     __param(2, (0, common_1.Query)('role')),
     __param(3, (0, common_1.Query)('status')),
     __metadata("design:type", Function),

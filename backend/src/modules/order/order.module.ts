@@ -17,7 +17,7 @@ import { RedisService } from '../../config/redis.config';
     UserModule,
     DeviceModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'your-secret-key',
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '24h' },
     }),
   ],
