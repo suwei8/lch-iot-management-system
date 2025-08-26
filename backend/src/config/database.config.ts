@@ -11,11 +11,11 @@ import { DeviceLog } from '../modules/device/entities/device-log.entity';
  */
 export const databaseConfig = (): TypeOrmModuleOptions => ({
   type: 'mysql',
-  host: process.env.MYSQL_HOST || 'localhost',
-  port: parseInt(process.env.MYSQL_PORT, 10) || 3306,
-  username: process.env.MYSQL_USERNAME || 'root',
-  password: process.env.MYSQL_PASSWORD || 'sw63828',
-  database: process.env.MYSQL_DATABASE || 'lch_db',
+  host: process.env.DB_HOST || 'mysql',
+  port: parseInt(process.env.DB_PORT, 10) || 3306,
+  username: process.env.DB_USERNAME || 'lch_user',
+  password: process.env.DB_PASSWORD || 'sw63828',
+  database: process.env.DB_DATABASE || 'lch_db',
   entities: [User, Merchant, Device, Order, DeviceLog],
   synchronize: false, // 生产环境设为false，使用迁移
   migrations: ['dist/migrations/*.js'],
@@ -30,11 +30,11 @@ export const databaseConfig = (): TypeOrmModuleOptions => ({
  */
 export const AppDataSource = new DataSource({
   type: 'mysql',
-  host: process.env.MYSQL_HOST || 'localhost',
-  port: parseInt(process.env.MYSQL_PORT, 10) || 3306,
-  username: process.env.MYSQL_USERNAME || 'root',
-  password: process.env.MYSQL_PASSWORD || 'sw63828',
-  database: process.env.MYSQL_DATABASE || 'lch_db',
+  host: process.env.DB_HOST || 'mysql',
+  port: parseInt(process.env.DB_PORT, 10) || 3306,
+  username: process.env.DB_USERNAME || 'lch_user',
+  password: process.env.DB_PASSWORD || 'sw63828',
+  database: process.env.DB_DATABASE || 'lch_db',
   entities: ['src/**/*.entity.ts'],
   migrations: ['src/migrations/*.ts'],
   synchronize: false,
